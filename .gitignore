@@ -1,0 +1,48 @@
+# windows and mac thum
+Thumbs.db
+.DS_Store
+
+# idea file
+.idea
+
+#cocosstudio
+ccui/cocosstudio/*.udf
+*.Dir
+
+# VS
+.vs
+
+# android
+*.iml
+*.apk
+frameworks/runtime-src/proj.android/assets
+frameworks/runtime-src/proj.android/bin
+frameworks/runtime-src/proj.android/obj
+frameworks/runtime-src/proj.android/gen
+frameworks/runtime-src/proj.android/libs/armeabi
+frameworks/runtime-src/proj.android/libs/armeabi-v7a
+frameworks/runtime-src/proj.android/local.properties
+
+#ios
+*.mode*v*
+*.pbxuser
+*.xcbkptlist
+*.xcuserstate
+*.xccheckout
+xcschememanagement.plist
+.DS_Store
+._.*
+xcuserdata/
+DerivedData/
+*.ipa
+
+# svn
+.svn
+*.svn
+
+# project
+/res
+/publish
+xcshareddata
+*.udf
+*.cfg

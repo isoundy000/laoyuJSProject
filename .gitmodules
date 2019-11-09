@@ -1,0 +1,9 @@
+[submodule "tools"]
+	path = tools
+	url = https://gitee.com/feiyuyouxi/client_tool.git
+[submodule "frameworks/cocos2d-html5"]
+	path = frameworks/cocos2d-html5
+	url = https://gitee.com/feiyuyouxi/cocos_html5_framework.git
+[submodule "frameworks/cocos2d-x"]
+	path = frameworks/cocos2d-x
+	url = https://gitee.com/feiyuyouxi/cocos_frame_work.git
