@@ -1,0 +1,1025 @@
+package paohuzi;
+
+// 消息流格式：
+
+// int32(命令字，解释pb) + int32（保留） + protocoal buffer
+
+//约定
+// 1. 发送和请求采用相同的消息
+// 2. 结构体采用  little endian
+// 3. 消息由 客户端向服务器发送，服务器对房间内广播
+// 4. 需要调用的参数，或者返回的参数，都应该出现在 protocoal buffer里面，有名称
+// 5. 尽量不要用保留字
+// 6. 常用变量定义在header中了，含义相同的不必再重新定义
+// 7. 用一个默认的default protocol buffer，总能解开消息头 GS_Default_MSG
+
+// 8. 服务器是 golang 语言编写，golang 要求结构体的变量都是 大写开头
+
+enum RetValue
+{
+	Success							= 0; // 成功
+	Error_account					= 1; // 账号错误
+	Error_password					= 2; // 密码错误
+	Error_server					= 3; // 服务器内部错误
+	Error_arg						= 4; // 参数错误
+	Error_privilege					= 5; // 权限错误
+	Error_parse_protobuf			= 6;  // 解析protobuf 错误
+	Error_serialize_protobuf		= 7; // 序列化protobuf 失败
+	Error_time_out					= 8; // 超时
+	Error_login_auth				= 9; // 认证失败
+	Error_login_Ver                 = 10; //版本过低
+}
+
+
+
+// 游戏的时候，每个玩家的牌由服务器广播
+// gameServer主动向玩家推送的广播消息
+/// 广播消息 ， 101~199
+enum BCMSG
+{
+	GS_Login		= 1;	//登录
+	GS_StatusChange = 11 ;//客户端状态变更
+	GS_UserJoin 	= 101;
+	GS_UserLeave 	= 102;
+	GS_UserDisconnect=103;	//玩家临时掉线，真正离开采用 	GS_UserLeave
+	GS_GameOver		= 105; 	//服务器宣布游戏结束
+	GS_GameResult 	= 106;	//游戏战绩显示.
+	GS_CardDeal		= 107;	//发牌
+	GS_GameStart	= 109;	//开始游戏，之后发牌
+	GS_GameTurn_Out		=  110; //到谁出牌了，开始读秒
+	GS_GameTurn_In		=  111; //请客户端选择是否进牌
+	GS_BroadcastAction 	= 112;  // 广播
+	GS_RoomInfo 	= 113;  // 断线重连之后，获取房间ID
+	GS_Create_Room = 114; 	//创建一个房间
+	GS_Chat = 115; //聊天广播
+	GS_Vote = 116 ; //投票广播
+	GS_Marquee = 117; //跑马灯
+	GS_RoomResult = 118 ; //房间结算
+	GS_UserKick = 119 ; //被自己的另一个账号踢下线
+	GS_Niao_Status = 120 ; //广播每个人抓鸟，大鸟状态
+    GS_Pls_Disconnect = 121 ; //请客户端断开连接，关闭定时器，重连等
+    GS_Jushou_Status = 122 ; //广播三个玩家的举手状态，在每一轮开始的时候广播
+    GS_Baojing_Status = 123 ; //广播4个玩家的报警状态
+    GS_Fanxing_Status = 124 ; //等待玩家翻醒
+    GS_ReadyStatus = 126 ; //所有玩家的准备状态
+
+    //牛牛
+    GS_NiuniuOver = 130;
+	GS_Login_NiuNiu    = 501;
+	GS_UserJoin_NiuNiu 	= 601;
+	GS_GameStart_NiuNiu = 609;
+	GS_Vote_NiuNiu = 616 ; //投票广播
+	GS_RoomResult_NiuNiu = 618;
+
+	GS_GameChipIn = 200; 	//下注
+    GS_GameShowHand = 201;	//翻牌，亮牌
+    GS_ReadyNotify = 202;	//int变量的status变化
+    GS_Qiangzuang = 203;	//抢庄。 -1 可以抢，0不能抢 1：抢 2:放弃
+    GS_Preview  = 204; //预览
+
+    GS_AutoAction = 206; //自动动作
+    GS_Sitdown = 207;
+    GS_LastResult = 208;
+
+
+
+    //长牌
+    GS_PushCard    = 151;  //通知玩家出牌
+    GS_CacheCard   = 152;  //通知玩家摸牌
+    GS_AllAnCard   = 153;  //开局偷牌结束后 通知玩家的状态
+    GS_SelectDang  = 154;    //通知玩家当和推当
+    GS_Piao_Status = 156; //通知玩家所有人飘信息
+    GS_DangInfo    = 157; //通知所有玩家当的玩家
+    CP_GS_GameOver   = 158;//长牌结算
+    CP_GS_RoomResult = 159;//总结算
+    CP_GS_GameStatus    = 160;//服务器的状态
+    CP_GS_ToGameStart     =  161;//通知第一个进房间的人开始游戏
+
+}
+
+message GS_AutoAction_MSG
+{
+    optional int32 	AutoAction 		= 2; //下一个自动动作
+    optional int32  Second			= 3; // 距离这个动作还剩的秒数
+    optional string  Prompt			= 4; //
+    optional int32  Banker			= 5; // 庄家ID
+    optional string  PromptBanker	= 6; //针对庄家的提示
+}
+message GS_Sitdown_MSG
+{
+	optional int32 	Result 		= 2; //下一个自动动作
+	optional string  Reason			= 3; // 失败原因，result<0的时候
+
+}
+//动作列表
+enum ActionFlag
+{
+	TIANHU = 0x1; 	//天胡
+    DIHU = 0x2; 	//地胡
+    TI = 0x4;		//提
+    WEI=0x8;			//偎，扫
+    CHOUWEI = 0x10;    //臭畏
+    HU= 0x20;		//胡
+    PAO = 0x40;		//跑
+    PENG = 0x80;		//碰
+    CHI =  0x100;		//吃
+    DUI = 0x200;    //对子，调将
+    DAN = 0x400;    //单牌
+    GUO = 0x10000;
+
+}
+
+
+message HEADER
+{
+	optional int32	Cmd 		=1;		//命令字，服务器复制这个内容
+	optional int32	Seq			=2;		//命令序列号，用于跟踪数据流 ， 服务器复制这个内容
+	optional int32  TickCount 	=3;	//发送的时间戳 ， 服务器复制这个内容
+	optional int32	RoomID		=4;		//房间是个常用变量
+	optional int32  Result 	 	=5;		//返回结果，错误码参照error_code
+	optional string	ErrorMsg 	=6;	//错误消息
+}
+
+// 登录返回，message的格式是cmd 加上 _MSG,比如登录命令是： GS_Login
+message GS_Login_MSG
+{
+	required HEADER	Head 			= 1;
+	optional int32  RoomID			= 2; //如果有没打完的，这里 是房间编号
+	optional int32 		Result = 4 ; // 登陆的返回结果。 0正确， 非零见：RetValue
+    optional string 	ErrorMsg = 3 ; //错误消息，正确没有消息
+}
+
+//客户端状态变更
+message GS_StatusChange_MSG
+{
+	optional HEADER	Head 			= 1;
+	required string Status 			= 2; //状态变更： 目前有：准备好了reday
+	optional int32   UserID 		= 3 ;//谁的状态变更，这个要广播了
+	optional int32 	Round 	=	4;	//准备好第几轮了
+}
+
+//用户信息，最常用的打包一起了
+message UserInfo{
+	optional int32 	ID 	=1;
+	optional string NickName 	=2;
+	optional string HeadIMGURL  = 3;
+	optional int32 Pos 		= 4;		// 用户的相对位置	 1,2,3,4,5等。从1开始
+	optional string Province = 5;	//省市
+	optional string OpenID = 6 ;	//QQ 登录，微信登录的ID
+	optional int64  Last_Login_Time = 7; //最后登录时间
+	optional string City = 8 ;// 城市
+	optional string Country = 9 ; //国家
+	optional int32  Numof_cards_1 = 10; //什么鬼
+	optional int32  Numof_cards_2 = 11; //什么鬼
+	optional int32  Numof_cards_3 = 12; //什么鬼
+	optional int32  Sex = 13;//还是sex符合国情啊，一看就懂
+	optional string UnionID = 14;//啥？
+	optional string IP = 15;// 用户的连接IP
+	optional int32 RemainCards = 16 ;	//
+	optional string GPS = 17;
+	optional string Location = 18 ; //坐标..格式。。。。26.412443,112.859618格式
+    optional string locationCN = 19;//坐标...格式：。。。中国广东省佛山市高明区文明路
+    optional bool Watching = 20;//观战
+    optional bool Sitdowning = 21;//坐下
+}
+
+message GS_UserJoin_MSG
+{
+	optional HEADER		Head 			= 1;
+	repeated UserInfo	Users = 2;			// 用户信息
+	optional string Option = 3; // 房间选项
+	optional int32 		RoomID = 4 ; // 房间ID
+	repeated int32 		OfflineList=5;//断线？
+	optional int32 		Result = 12 ; //  加入房间结果 	0:正确  1：非零，错误嘛
+	optional string 		ErrorMsg = 13 ; //错误消息，正确没有消息
+	optional int32 Owner = 15;
+}
+
+message GS_UserLeave_MSG
+{
+	optional HEADER		Head 			= 1;
+	repeated int32 		Users = 2;
+}
+
+// 游戏开始，报告每个玩家的相对位置
+message GS_GameStart_MSG
+{
+	optional HEADER	Head 			= 1;
+	required int32 Pos1 = 2;
+	required int32 Pos2 = 3;
+	required int32 Pos3 = 4;
+	required int32 Banker = 5;		//庄家Pos
+	optional int64 GameID = 6;	//本局唯一ID，局ID
+	optional string StartTime = 7;// 开始时间
+	repeated int32 Score = 8 ; // pos1,2,3 三个位置的开始前分数
+	optional int32 Pos4 = 10;
+    optional int32 LianZhuang = 11;//第几次连庄。
+    optional int32 BankerUserID = 12; //庄家 userid
+    optional int32  CurrentRound = 13 ; //第几轮
+    optional  int32  BankerCard = 14;
+}
+
+// GS_GameOver，游戏结束，没有内容
+message GS_GameOver_MSG
+{
+	optional HEADER	Head 			= 1;
+	required int32 	Winner			= 2;
+	optional string Reason 			= 3;
+	repeated	GameResult_MSG	Users = 4;
+	optional string Url 			= 5; 	//本局下载replay的URL
+	optional	int32 	WinnerXi = 6; //息
+	optional	int32 	WinnerFan = 7; //番
+	optional	int32 	WinnerJi = 8; //级，结果
+	optional	int32 	WinnerZimo = 9; //是否自摸
+	optional	string	WinnerRemark 		= 10;//说明信息,如何计算息的
+	optional	string	FanRemark 		= 11;//说明信息,如何计算番的
+	optional	int32 	FanFlag = 12; //同 FanRemark 红胡： 1 //黑胡：2 //自摸: 4//天胡: 8//地胡：16//
+	optional 	string 	EndTime = 13; //当前时间
+	repeated 	int32 	LeftCards= 14;//游戏结束的时候，排队剩下的牌
+	optional 	int32 	ByCard = 16;//由哪张胡的
+	optional 	int32 	ByWho = 17 ; //谁放的跑
+	repeated	ScoreChange_MSG Changes = 18 ; //每一次碰胡子引起的分数变化
+	optional int32  XingCard = 19; //醒牌是啥，0没有醒
+	optional int32  XingCount = 20; //醒牌有几张
+	optional int32  FanFlag2 = 30;//对fanflag的补充
+	optional 	int32	HuType = 21;// 如何胡的。 ActionFlag：pao跑胡 wei:偎胡 chi:平胡 dui:调将胡 ti:提胡
+    optional	int32	Banker = 22;//庄家ID
+    optional 	int32	Lianzhuang = 23;//连庄几次
+}
+
+message ScoreChange_MSG
+{
+	optional 	string	 Action = 2 ; //谁胡的
+	optional 	string	 Change = 3 ; //四个人分数变化
+}
+
+message GS_Chajiao
+{
+        optional	int32 	WinnerXi = 6; //息
+    	optional	int32 	WinnerFan = 7; //番
+    	optional	int32 	WinnerJi = 8; //级，结果
+    	optional	string	FanRemark 		= 11;//说明信息,如何计算番的
+    	optional	int32 	FanFlag = 12; //同 FanRemark 红胡：
+    	optional 	string  ResultList = 13;//手牌成型后的样子。与单个用户结果集相同
+    	optional 	int32 	ByCard = 16;//由哪张胡的
+}
+
+//	游戏战绩显示,所有人的战绩列表，分数，变化，等一起展示
+message GameResult_MSG
+{
+	required	int32 	UserID 		= 2;
+	required	string 	UserName 	= 3;
+	optional 	int32   Result = 9 ; 	//本局得分
+	optional 	int32 	Score = 13;  		//结算到本局为止，包括本局
+//	optional 	string	HeadImgURL = 14; 	//头像URL
+	repeated	int32 	Hand = 15 ; //手牌
+	optional 	int32	BigTiLong = 16; 	//大提龙分
+	optional 	int32	SmallTiLong = 17; 	//小提龙分
+	optional    GS_Chajiao Chajiao = 18;
+    optional 	PlayerCards AllCards = 19;  // TODO、、含有这个人所有的牌
+    optional    CPPlayerCards CPAllCars=20; //长牌专用手牌
+}
+
+//	游戏战绩显示,所有人的战绩列表，分数，变化，等一起展示
+message RoomUserResult_MSG
+{
+	required	int32 	UserID 		= 2;
+	required	string 	UserName 	= 3;
+	optional 	int32 	Score = 13; //结算到本局为止，包括本局
+	optional 	string	HeadImgURL = 14; //头像URL
+	optional 	string	RemoteAdress = 15; //上次地址
+
+	optional	int32 	ZhuaNiao = 16 ; //抓鸟
+	optional	int32 	Huxi = 17 ; //胡息
+	optional	int32 	ZhuaNiaoFen = 18 ; //抓鸟得分
+	optional	int32 	HuxiFen = 19 ; //胡息得分
+    optional	int32 	HuCount = 20 ; //胡牌次数
+    optional	int32 	MaxHuxi = 21 ; //最大胡息
+    optional	int32 	MaxFanCount = 22 ; //最大番
+    optional	int32 	MaxJi = 23 ; //最大番
+    optional	int32	Lianzhuang = 24;//连庄次数
+    optional 	int32	LoseCount = 25;//点炮次数
+}
+
+
+// 房间结算消息
+message GS_RoomResult_MSG
+{
+	optional 	int32 RoomID = 2;
+	optional 	string 	EndTime 	= 	3; //当前时间
+	optional 	int32 	CurrentRound = 4 ; //结算时，第几轮
+	optional 	int32 	TotalRound = 5 ; 	//
+	optional 	int64 	CreateTime = 6 ; //房间第一局开始时间
+	optional 	string 	CTime = 7 ; //房间第一局开始时间
+	optional 	int64 	Endtime = 8 ; //房间结束时间
+	optional 	string 	Etime = 9 ; //房间结束时间
+	repeated RoomUserResult_MSG Users = 10; //用户列表
+	optional 	string	Option = 11; //房间选项
+	optional 	int32 	Owner = 12; //房主
+
+
+}
+
+
+//发牌
+message GS_CardDeal_MSG
+{
+	optional HEADER	Head 			= 1;
+	repeated int32	Cards 			= 2;
+	optional int32  ToUser			= 3;
+}
+
+
+//到谁出牌了，开始读秒
+message GS_GameTurn_Out_MSG
+{
+   optional HEADER    Head         = 1;
+   required int32     Turn         =2  ; //该谁出牌了
+   required int32  Second       = 3; // 可用的秒数
+   optional string Remark       = 4; //说明
+   required int32     Seq          =5  ; //这是第几轮，必须填写。很必要
+   repeated   int32 Cards = 6;   //你的手里牌，调试用
+   repeated   int32 Freeze = 7;  //不能出的牌,断线重连后，在手牌隔壁
+   optional GS_TishiPai_List_MSG Ting=8;//打听
+   optional int32 CardCount = 9; //手牌数量
+}
+
+message AllCCards
+{
+    repeated ChengCards Cards =1;
+}
+
+
+//下下家(上家)是否愿意吃牌
+message GS_GameTurn_In_MSG
+{
+		optional HEADER	Head 			= 1;
+		optional int32 	Seq 	=2;//排序，表明吃的第几张牌
+		required int32  Card = 4 ;
+		required int32  Flag = 5 ; //允许的动作列表,参见： ActionFlag  ChangPaiFlag
+		optional string Remark=6;// 汉字说明，调试用
+		optional int32  From = 7; // 是谁摸得这张牌
+		optional Chi_List_Node ChiList = 8 ; //吃牌的组合列表
+		optional AllCCards CCards      = 9 ;      // 成牌的组合列表
+}
+
+
+
+
+// 广播的动作
+message GS_BroadcastAction_MSG
+{
+	optional HEADER	Head 			= 1;
+	optional	string Action = 2;
+	optional	string ScoreChange = 3;
+}
+
+// 门子包括台面的 跑，提，碰 和手上 的坎 等
+message MenziCards
+{
+	repeated int32 Cards = 1;	//这三张或者四张牌 。比牌是6张或者9张
+	optional string Type =2;	// 提，跑，碰等
+	optional int32 Chi = 3;//	如果是吃，是那张牌吃进的。
+}
+
+//玩家手上的牌，和台面的牌
+message PlayerCards
+{
+	repeated int32 Hands =1;	//手上的 单张部分，未出的句子，不包括坎？
+	repeated int32 DiscardCards=2; //弃牌
+	repeated MenziCards Menzi =3; //门子，台上和台下的
+	repeated int32 Freeze = 4; //被冻结的牌，不能出的手牌
+}
+
+//长牌牌信息
+message CPPlayerCards
+{
+	repeated int32 Cards = 7; //牌列表
+	repeated ChengCards ChiList  = 8 ; //如果可以吃牌，这里是吃牌的选择列表
+	repeated ChengCards LandHand = 10; //落地牌列表(包括吃、碰、暗)
+	repeated int32  DisCards    = 14; //废牌列表
+	optional int32  CardCai     = 11; //补财数量
+    optional int32  CardTing    = 12; //补听数量
+    optional int32  CardsCount  = 13; //手牌数量
+}
+
+
+//玩家的信息
+message PlayerInfo_MSG
+{
+		optional UserInfo 	 User =1;
+		required PlayerCards Card =2;
+		required int32 UserID  = 3 ; // UserInfo 里面有UserID，写外面方便一些
+		optional int32 Score = 4 ; //目前为止得分情况
+		optional int32 LastTurnInFlag = 5;	//  你自己进牌要用到的 flag,出牌忽略
+		optional int32 Offline = 6 ; // 掉线?
+		optional Chi_List_Node ChiList = 7 ; //如果可以吃牌，这里是吃牌的选择列表
+		optional int32 InGameScore = 8 ; // 本局提跑偎胡得分.用于碰胡子玩法使用
+		optional CPPlayerCards Cards=9;
+		optional bool   IsPushCard  = 10; //当前是否需要出牌
+		optional Set_Status Piao   = 11;//如果设置了飘
+		optional Set_Status Dang   = 12;//如果设置了当
+
+}
+
+
+
+
+
+//本轮各自的出牌情况
+message RoundAction
+{
+	optional int32 UserID =1;
+	optional int32 Action =2; //与flag相同的表示
+}
+
+//本轮是啥情况了
+message RoundInfo_MSG
+{
+	optional int32 Card = 1 ; // 本轮要争夺的 牌面，如果是 0 表示等待出牌
+	optional int32 From = 2 ; // 本轮要出的牌是谁出的，或者谁摸得
+	optional int32 Mo = 3 ; //本轮牌是不是摸的  1 是  ，0 不是
+	repeated  RoundAction Actions = 4; //本轮都有那些 表态了 ... 出牌者自动表态 过，
+	optional int32 Seq = 5 ; // 本轮是第几轮了
+}
+
+// 房间的信息
+message GS_RoomInfo_MSG
+{
+	required int32 RoomID			= 2;
+	repeated PlayerInfo_MSG Players 	= 3;
+	required RoundInfo_MSG Round 		= 4;
+	optional int32 LeftCardCount = 5;	//剩余牌的张数
+	optional int32 GameSeq  = 7 ; // 第几局了
+	optional	int32 Banker = 8 ; //庄家的位置
+	optional int32 DataSeq = 9 ; //服务器当前的操作序列号
+	optional GS_Niao_Status_MSG Niao = 10; //如果设置了鸟
+	optional GS_Votes_Status_MSG Vote = 11; // 三个玩家投票的信息。如果120秒内
+	optional GS_Jushou_Status_MSG Jushou = 12;//三个玩家的举手信息
+	optional GS_Baojing_Status_MSG Baojing = 13; //三个玩家的报警状态
+	optional string Option = 14;
+	optional int32 Owner = 15;
+	optional int32 Lianzhuang = 16; //连庄次数
+	optional int32 BankerUserID = 18 ; //庄家的分数
+	optional int32 GameStatus = 19;//房间开始状态：0未开始 1:已经开始
+	optional int32 CurDanger   = 20; //当前选择当的玩家id
+}
+
+// 创建房间
+message GS_Create_Room_MSG
+{
+	optional int32 	RoomID			= 2;	// 返回房间ID
+	optional string 	URL 	= 3;			// 返回房间的真正web ocket...这个功能将在稍后实现。。。房间管理服务器和游戏服务器是分开的
+}
+
+//聊天广播
+message GS_Chat_MSG
+{
+	required int32 FromUser = 2;
+	required int32 FromRoom = 3;
+	required string Msg = 4; // 客户端对msg 先base64,在urlencode,服务器不解开，直接转发。。。（只有服务器做关键词过滤，才考虑解开）
+}
+
+
+
+
+//投票广播
+message GS_Vote_MSG
+{
+	optional HEADER		Head 	= 1;
+//	optional string 	Type 	= 2; //发起什么类型的投票
+	optional string 	Content 	= 3; //发起什么类型的投票
+	optional int32  	ByUserID 	= 4; //发起人
+	repeated Vote_MSG   Users = 5; //-1:需要投票 0：不需要投票 1：确认 2：否认
+	optional int32  	EndSecond = 6;
+	optional bool       Voting = 7; // 0没有投票 1:正在投票
+	optional int32      VoteResult = 8; //0:投票未结束，或者有人否定  1:投票解散
+}
+
+
+message Vote_MSG
+{
+    optional int32  	UserID 	= 4; //投票人
+    optional int32      VoteValue = 5; //-1:需要投票 0：不需要投票 1：确认 2：否认
+}
+
+//广播掉线
+message GS_UserDisconnect_MSG
+{
+	required int32  UserID = 1;
+	optional string ConnectStatus = 2; // connteced,disconnected,
+}
+
+message Ready_MSG
+{
+	optional int32  	UserID 	= 4; //投票人
+	optional int32      ReadyValue = 5; //-1:可以点击准备（未准备） 0：未准备 1：已经准备
+}
+
+
+//投票准备的
+message GS_ReadyStatus_MSG
+{
+	optional bool  	    SecondStart 	= 2; // 1,第一局结束
+	optional int32  	GameStatus 	= 3; // 0 游戏已经未开始，游戏已经结束。。1游戏正在进行中
+	optional int32  	UserID 	= 4; // 谁点击了准备
+	repeated Ready_MSG   Users = 5; //-1: 当前玩家准备状态
+}
+
+
+//跑马灯消息
+message GS_Marquee_MSG
+{
+	optional string 	Source = 1; // for debug
+	optional string 	Content 	= 3; //跑马灯内容
+	optional string 	Uuid	=4;//区分这一条和另一条消息
+}
+
+
+//被自己的另一个账号踢下线
+message GS_UserKick_MSG
+{
+	optional string 	OtherIP =2; 	//另一个来自那
+	optional string		ClientType = 3; //另一个是啥客户端
+}
+
+
+//单个玩家鸟的状态
+message Niao_Status
+{
+	optional int32 	UserID = 2;//
+	optional int32 	IsSet= 3 ; //是否设置过选项 。 0 没有设置  1：已经设置了
+	optional int32 	IsZhuaNiao = 4 ; //是否抓鸟
+	optional int32 	TuoNiao = 5 ; //拖鸟
+}
+
+//三个玩家的鸟状态
+message GS_Niao_Status_MSG
+{
+	repeated 	Niao_Status 	Users = 2 ;
+}
+
+
+//单个玩家的投票状态
+message Vote_Status
+{
+		optional int32 	UserID = 2;//
+		optional string	Content = 3;//
+}
+
+
+//三个玩家的投票状态
+message GS_Votes_Status_MSG
+{
+		repeated 	Vote_Status 	Users = 2 ;
+		optional int32 	ByWho = 3;//谁发起的投票
+}
+
+
+//请断开连接
+message GS_Pls_Disconnect_MSG{
+	optional string	Reason = 2;//断开原因
+	optional int32 RoomID = 3 ; //如果在房间，这个就是房间ID
+}
+
+
+//如何吃牌
+message Chi_List_Node{
+	repeated int32 Cards = 2;
+	repeated Chi_List_Node Nodes = 3;
+}
+
+//单个玩家的举手
+message Jushou_Status{
+	optional int32 	UserID = 2;//
+	optional int32 	IsSet= 3 ; //是否设置过选项 。 0 没有设置  1：已经设置了
+	optional int32 	CanSet = 4 ; //能否设置举手 。  0不能， 1：能
+}
+
+
+//三个玩家的举手状态
+message GS_Jushou_Status_MSG{
+		repeated 	Jushou_Status 	Users = 2 ;
+}
+
+
+//单个玩家的报警状态
+message Baojing_Status{
+	optional int32 	UserID = 2;//
+	optional int32 	Stat = 4 ; //0:不能设置报警  1:能设置，但是没有设置  2:已经报警  3:选择不报警
+}
+
+
+//三个玩家的举手状态
+message GS_Baojing_Status_MSG{
+		repeated 	Baojing_Status 	Users = 2 ;
+}
+
+
+//番醒状态
+message GS_Fanxing_Status_MSG{
+	optional int32 	UserID = 2;// 等待谁翻醒
+	optional int32 	CurXing = 3;// 已经番出多少醒了。可以继续翻
+	optional int32 	FanCount = 6; //已经番了几次。
+	optional int32 	LeftCount = 4;//剩下的张数。如果一直是4醒，番完为止
+	optional int32  Status = 5; // 默认0，什么都不要做。 1:需要番醒 2:翻醒结束(播出动画即可)紧跟游戏结束
+	optional int32  FanCard	=7; //翻出的牌是啥
+	optional int32  XingCard =8; //醒牌是啥
+}
+
+
+
+
+
+
+
+////////////////////////////////////////////牛牛
+
+
+//登陆的返回值
+message GS_Login_NiuNiu_MSG
+{
+    optional int32 		Result = 2 ; // 登陆的返回结果。 0正确， 非零见：RetValue
+   	optional string 	ErrorMsg = 3 ; //错误消息，正确没有消息
+    optional int32 		RoomID = 4 ; // 房间ID，非0表示用户在这个房间，需要客户端尝试连接到这个服务器，等待推送
+
+}
+
+//玩家的信息
+message PlayerInfoNiuNiu_MSG
+{
+		optional UserInfo 	 User =1;
+		required int32 UserID  = 3 ; // UserInfo 里面有UserID，写外面方便一些
+		optional int32 Score = 4 ; //目前为止得分情况
+		optional int32 Offline = 5 ; //1:掉线 0:在线
+		repeated int32 Cards = 6; //牌列表
+}
+
+
+//广播用户加入
+message GS_UserJoin_NiuNiu_MSG
+{
+	optional int32 		Result = 2 ; //  加入房间结果 	0:正确  1：非零，错误嘛
+	optional string 		ErrorMsg = 3 ; //错误消息，正确没有消息
+	repeated PlayerInfoNiuNiu_MSG	Users = 6;			// 用户信息
+	optional string Option = 7; // 房间选项
+	optional int32 		RoomID = 4 ; // 房间ID
+	optional int32 		GameStatus  = 5; // 0:未开始  1:已经开始
+	optional int32 		CurrentRound  = 8; // 0:如果已经开始，这个变量表示第几局
+	optional int32 		TotalRound  = 9; //  房间总局数
+	optional int32 		Owner  = 15; // 房主ID
+	repeated PlayerInfoNiuNiu_MSG	WatchingUsers = 16;			// 用户信息
+}
+
+//下注,单个人的下注情况
+message GameChipIn_MSG{
+	optional 	int32 	UserID = 2 ; 	//
+	optional 	int32 	Chip = 3 ; 		//
+	repeated	int32	Options = 4; //可以下哪些注
+	repeated	int32	Disable = 5; //可以下哪些注
+
+}
+
+//全部的下注情况
+message GS_GameChipIn_MSG{
+	optional 	int32 	UserID = 2 ; 	//谁下注了
+	repeated 	GameChipIn_MSG 	Users = 4;	//全部下注情况
+}
+//单个人翻拍的情况
+message GameShowHand_MSG
+{
+	optional 	int32 	UserID = 2 ; 	//
+	repeated 	int32 	Cards = 3 ; 	// 真正的牌列表
+	optional 	int32 	HandStatus = 4 ; 	// -1可以翻牌了 0不能 1：已经翻拍了，可以显示cards
+    optional 	int32 	NiuResult = 5 ; 	// 牛牛的结果。  0~10：无牛 到牛牛 100+
+	optional 	string 	NiuResult2 = 6 ; 	// 牛牛的结果。  全拼小写。 meiniu,niu1,niu9,zhadan,wuhua,xiaoniu
+	optional 	int32 	NiuRatio = 7 ; 	// 牛牛的结果。1~9的变量
+
+}
+message GS_GameShowHand_MSG
+{
+	optional 	int32 	UserID = 2 ; 	//谁showhand
+	repeated 	GameShowHand_MSG 	Users = 4;	//全部showhand情况
+}
+message GS_ReadyNotify_MSG
+{
+	optional 	int32 	UserID = 2 ; 	//谁status
+	repeated 	GS_Status_Var 	Users = 4;	//全部status
+}
+
+
+
+message GS_Qiangzuang_MSG
+{
+	optional 	int32 	UserID = 2 ; 	//谁status
+	repeated 	GS_Status_Var 	Users = 4;	//全部status
+	optional 	int32 	Banker = 5 ; 	//谁是庄家。
+	optional 	int32 	Ratio = 6 ; 	//庄家的倍率
+}
+
+
+//发牌
+message GS_Preview_MSG
+{
+	repeated int32	Cards 			= 2;
+	optional int32  ToUser			= 3;
+}
+//玩家状态：
+ message GS_Status_Var
+ {
+     optional 	int32 	UserID = 2 ; //
+     optional 	int32 	Status = 3 ; // 0:没有设置  1:需要ui弹出设置   10~n:设置的具体value
+ }
+
+message Vote_NiuNiu_MSG
+{
+    optional int32  	UserID 	= 4; //投票人
+    optional int32      VoteValue = 5; //-1:需要投票 0：不需要投票 1：确认 2：否认
+}
+
+//投票广播
+message GS_Vote_NiuNiu_MSG
+{
+    optional int32  	ByUserID 	= 4; //发起人
+    repeated Vote_NiuNiu_MSG   Users = 5; //-1:需要投票 0：不需要投票 1：确认 2：否认
+    optional int32  	EndSecond = 6;
+    optional bool       Voting = 7; // 0没有投票 1:正在投票
+    optional int32      VoteResult = 8; //0:投票未结束，或者有人否定  1:投票解散
+
+}
+//玩家状态：
+message GS_Start_Value
+{
+	optional 	int32 	UserID = 2 ; //
+	optional 	int32 	Score = 3 ; // 开始的分数
+    optional 	int32 	ChipIn = 4 ; //下注
+}
+// 游戏开始，报告每个玩家的相对位置
+message GS_GameStart_NiuNiu_MSG
+{
+		required int32 Banker = 5;		//庄家UserID
+        optional string StartTime = 7;// 开始时间
+        optional int32 CurrentRound = 9;		//
+        optional int32 TotalRound = 10;	//
+		optional string Chonglian = 11; // "yes"
+        repeated GS_Start_Value Score = 108 ; // 避免跟跑胡子一样的value
+}
+
+
+//	游戏战绩显示,所有人的战绩列表，分数，变化，等一起展示
+message GameResult_NiuNiu_MSG
+{
+	optional	int32 	UserID 		= 2;
+	optional	string 	UserName 	= 3;
+	optional 	int32   Result = 9 ; 	//本局得分
+	optional 	int32 	Score = 13;  		//结算到本局为止，包括本局
+	optional 	int32 	Flags = 14;  		// 0x1:春天 0x2:倒春
+	optional 	int32 	Ratio = 16;  		//我的倍数
+	repeated	int32 	Hand = 15 ; //手牌
+}
+
+message GS_NiuniuOver_MSG
+{
+    required int32 	Winner			= 2;
+    optional string Reason 			= 3;
+    repeated	GameResult_NiuNiu_MSG	Users = 4;
+    optional string Url 			= 5; 	//本局下载replay的URL
+    optional int32 Banker = 6;		//庄家UserID
+    optional 	string 	EndTime = 13; //当前时间
+}
+//结算时候，要的数据
+message RoomUserResult_NiuNiu_MSG
+{
+	required	int32 	UserID 		= 2;
+	required	string 	UserName 	= 3;
+	optional 	int32 	Score = 13; //结算到本局为止，包括本局
+	optional 	string	HeadImgURL = 14; //头像URL
+	optional 	string	RemoteAdress = 15; //上次地址
+
+	optional 	int32 	TakeAll = 16;
+	optional 	int32 	LostAll = 17;
+	optional 	int32 	WinCount = 18;
+	optional 	int32 	NiuniuCount = 19;
+	optional 	int32 	LostCount = 20;
+	optional 	int32 	ChuntianCount = 21;
+	optional 	int32 	ZhadanCount = 22; //所有炸弹
+	optional 	int32 	RuanzhaCount = 23; //软炸弹
+	optional 	int32 	YingzhaCount = 24; //硬炸弹
+	optional    int32   Huojian = 25;//火箭
+
+}
+// 房间结算消息
+message GS_RoomResult_NiuNiu_MSG
+{
+	optional 	int32 RoomID = 2;
+	optional 	int32 	CurrentRound = 4 ; //结算时，第几轮
+	optional 	int32 	TotalRound = 5 ; 	//
+	repeated    RoomUserResult_NiuNiu_MSG Users = 10; //用户列表
+	optional 	string	Option = 11; //房间选项
+	optional 	int32 	Owner = 12; //房主
+    optional 	string 	CreateTime = 16 ; //房间第一局开始时间
+    optional 	string 	EndTime = 18 ; //房间结束时间
+}
+
+message Last_User_Card
+{
+	optional int32 	UserID = 2; //下一个自动动作
+	optional string Cards = 3;
+	optional int32  ChipInValue = 4; //正数，下的注，负数，庄家，以及倍数
+	optional int32	Result = 5; //
+	optional int32 Result2 = 6 ; //牛几
+}
+
+message GS_LastResult_MSG{
+	repeated Last_User_Card Users = 2;
+}
+
+////////////////////////////////////////////////////////长牌
+
+
+//长牌动作列表
+enum ChangPaiFlag
+{
+   CP_HU   = 0x1;    //胡
+   CP_PENG = 0x8;    //碰
+   CP_CHI  = 0x10;    //吃
+   CP_AN   = 0x20;    //暗
+   CP_GUO  = 0x40;    //过
+}
+
+//[长牌]成牌类型(落地牌)
+enum ChengType
+{
+    Chi     = 1;
+    Peng    = 2;
+    An      = 3;
+}
+
+//[长牌](落地牌)包括吃  碰  暗
+message ChengCards
+{
+	repeated int32  Cards = 1;       //组合
+	optional int32  Type =2;         // 1 吃  2 碰 3 暗
+}
+
+//单个玩家某些值的状态（飘、当）
+message Set_Status
+{
+	optional int32 	UserID = 1;
+	optional int32 	IsSet= 2 ; //是否设置过选项 。 0 没有设置  1：已经设置了
+	optional int32 	Value = 3 ; //值
+}
+
+//[长牌]通知玩家飘的状态
+message GS_Piao_Status_MSG{
+    repeated Set_Status Status          = 1;
+}
+
+//[长牌]通知玩家选择当
+message GS_Dang_Status_MSG{
+    repeated Set_Status  Status          = 1;
+}
+
+//通知玩家选择当
+message GS_SelectDang_MSG{
+    required int32  UserId          = 1;
+
+}
+
+//[长牌] 当家信息
+message GS_DangInfo_MSG{
+    optional HEADER	Head 			= 1;
+    required int32  UserId          = 2;
+    required bool   IsDang        = 3;
+}
+
+
+//[长牌]开局偷牌结束后通知所有玩家的暗牌
+message GS_AllAnCard_MSG{
+    optional HEADER	    Head 		 = 1;
+    repeated ChengCards An_List      = 2;
+    required int32 	UserId 			 = 3;
+}
+
+
+
+//[长牌]出牌信息
+message GS_PushCardInfo_MSG
+{
+	optional HEADER	Head 			= 1;
+	required int32 	Turn 			= 2; //该谁出牌了
+	required int32  Card			= 4; //出的牌
+}
+
+
+
+
+// [长牌]广播抓牌
+message GS_CacheCard_MSG{
+    optional int32 UserId = 1;
+    repeated int32 Card   = 2;
+    required int32 IsTou = 3; //0 翻牌  1 偷牌(需插入手中)  2 开局翻一张牌
+    optional int32 Cai     = 4; //补财用
+    optional int32 Ting    = 5; //补听用
+    optional int32 Surplus = 6; //剩余牌数量
+}
+
+// 小结算
+message CP_GS_GameOver_MSG
+{
+   optional HEADER    Head         = 1;
+   required int32     Winner       = 2;
+   repeated   CP_GameResult_MSG  Users = 3;
+   repeated   int32  LeftCards= 4;//游戏结束的时候，排队剩下的牌
+   optional string Reason           = 5;
+   optional string Url          = 6;   //本局下载replay的URL
+   optional   int32  WinnerZimo = 9; //是否自摸
+   optional   string WinnerRemark      = 10;//说明信息,如何计算分的
+   optional   string FanRemark     = 11;//说明信息,如何计算番的
+   optional   int32  FanFlag = 12; //番数
+   optional   string     EndTime = 13; //当前时间
+   optional   int32  ByCard = 16;//由哪张胡的
+   optional   int32  Banker = 22;//庄家ID
+   optional   int32  Lianzhuang = 23;//连庄几次
+   optional    int32   TuoScore     = 24; //赢家点数
+
+}
+
+//  游戏战绩显示,所有人的战绩列表，分数，变化，等一起展示
+message CP_GameResult_MSG
+{
+   required   int32  UserID        = 2;
+   required   string     UserName   = 3;
+   optional   int32   Result = 4 ;       //本局得分
+   optional   int32  Score = 5;        //结算到本局为止，包括本局
+   optional    CPPlayerCards CPAllCars=7;  //长牌专用手牌
+   optional    int32   Piao    = 8;//飘分
+    optional    int32   Dang    = 9; //当
+}
+
+// 房间结算消息
+message CP_GS_RoomResult_MSG
+{
+   optional   int32 RoomID = 2;
+   optional   string     EndTime    =  3; //当前时间
+   optional   int32  CurrentRound = 4 ; //结算时，第几轮
+   optional   int32  TotalRound = 5 ;   //总局数
+   optional   int64  CreateTime = 6 ; //房间第一局开始时间
+   optional   string     CTime = 7 ; //房间第一局开始时间
+   optional   int64  Endtime = 8 ; //房间结束时间
+   optional   string     Etime = 9 ; //房间结束时间
+   repeated    CP_RoomUserResult_MSG Users = 10; //用户列表
+   optional   string Option = 11; //房间选项
+   optional   int32  Owner = 12; //房主
+
+
+}
+
+
+//  游戏战绩显示,所有人的战绩列表，分数，变化，等一起展示
+message CP_RoomUserResult_MSG
+{
+   required   int32  UserID        = 2;
+   required   string     UserName   = 3;
+   optional   int32  Score = 4; //结算到本局为止，包括本局
+   optional   string HeadImgURL = 5; //头像URL
+   optional   string RemoteAdress = 6; //上次地址
+    optional   int32  HuCount = 7 ; //胡牌次数
+    optional   int32  LoseCount = 8;//点炮次数
+    optional    int32   MaxTuo = 9;         //最大坨数
+}
+
+message TingPai_Card{
+   optional int32     Card = 2;//牌
+   optional int32     Score = 3;//胡牌分数
+   optional int32     Left = 4;// 剩余张数
+}
+
+
+
+
+message GS_TingPai_List_MSG{
+   optional int32     UserID = 2;//
+   repeated TingPai_Card TingCards = 4;//
+}
+
+
+message TishiPai_Card{
+   optional int32     Card = 2;//牌
+   repeated TingPai_Card TingCards = 4;//
+}
+
+
+message GS_TishiPai_List_MSG{
+   optional int32     UserID = 2;//
+   repeated TishiPai_Card TingCards = 4;//
+}
+
+//牌桌状态阶段变化
+message CP_GS_GameStatus_MSG{
+    required int32 Status = 1; //0 未开始 1 飘  2 发牌  3 当 4 偷牌  5 打牌
+}
+
+message CP_GS_ToGameStart_MSG{
+   optional int32     UserID = 2;//
+}

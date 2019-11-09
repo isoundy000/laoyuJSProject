@@ -1,0 +1,6 @@
+#!/bin/bash -l
+
+TOOLS_DIRECTORY=$(dirname "$0")
+TOOLS_DIRECTORY=$(cd "$TOOLS_DIRECTORY" && pwd -P)
+cd "$TOOLS_DIRECTORY"
+python generate_update.py fydp

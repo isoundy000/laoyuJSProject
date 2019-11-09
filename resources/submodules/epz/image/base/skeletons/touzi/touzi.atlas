@@ -1,0 +1,111 @@
+
+touzi.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+MJ_touzi01
+  rotate: false
+  xy: 751, 111
+  size: 72, 73
+  orig: 72, 73
+  offset: 0, 0
+  index: -1
+MJ_touzi02
+  rotate: false
+  xy: 825, 111
+  size: 72, 73
+  orig: 72, 73
+  offset: 0, 0
+  index: -1
+MJ_touzi03
+  rotate: false
+  xy: 899, 111
+  size: 72, 73
+  orig: 72, 73
+  offset: 0, 0
+  index: -1
+MJ_touzi04
+  rotate: true
+  xy: 100, 26
+  size: 72, 73
+  orig: 72, 73
+  offset: 0, 0
+  index: -1
+MJ_touzi05
+  rotate: true
+  xy: 175, 26
+  size: 72, 73
+  orig: 72, 73
+  offset: 0, 0
+  index: -1
+MJ_touzi06
+  rotate: true
+  xy: 250, 26
+  size: 72, 73
+  orig: 72, 73
+  offset: 0, 0
+  index: -1
+MJ_touzi_zhuan01
+  rotate: false
+  xy: 2, 2
+  size: 91, 84
+  orig: 91, 84
+  offset: 0, 0
+  index: -1
+MJ_touzi_zhuan02
+  rotate: false
+  xy: 100, 100
+  size: 91, 84
+  orig: 91, 84
+  offset: 0, 0
+  index: -1
+MJ_touzi_zhuan03
+  rotate: false
+  xy: 193, 100
+  size: 91, 84
+  orig: 91, 84
+  offset: 0, 0
+  index: -1
+MJ_touzi_zhuan04
+  rotate: false
+  xy: 286, 100
+  size: 91, 84
+  orig: 91, 84
+  offset: 0, 0
+  index: -1
+MJ_touzi_zhuan05
+  rotate: false
+  xy: 379, 100
+  size: 91, 84
+  orig: 91, 84
+  offset: 0, 0
+  index: -1
+MJ_touzi_zhuan06
+  rotate: false
+  xy: 472, 100
+  size: 91, 84
+  orig: 91, 84
+  offset: 0, 0
+  index: -1
+MJ_touzi_zhuan07
+  rotate: false
+  xy: 565, 100
+  size: 91, 84
+  orig: 91, 84
+  offset: 0, 0
+  index: -1
+MJ_touzi_zhuan08
+  rotate: false
+  xy: 658, 100
+  size: 91, 84
+  orig: 91, 84
+  offset: 0, 0
+  index: -1
+yuandi
+  rotate: false
+  xy: 2, 88
+  size: 96, 96
+  orig: 96, 96
+  offset: 0, 0
+  index: -1

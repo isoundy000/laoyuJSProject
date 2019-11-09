@@ -1,0 +1,12 @@
+# windows and mac thum
+Thumbs.db
+.DS_Store
+
+# idea file
+.idea/
+
+# xcode file
+xcuserdata/
+*.xcworkspacedata
+/cocos/platform/android/libcocos2dx/build
+*.iml

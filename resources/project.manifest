@@ -1,0 +1,10 @@
+{
+    "packageUrl" : "http://penghuzi.yayayouxi.com/penghuzi/update/",
+    "remoteVersionUrl" : "http://penghuzi.yayayouxi.com/penghuzi/version-3.1.0-a.manifest",
+    "remoteManifestUrl" : "http://penghuzi.yayayouxi.com/penghuzi/project-3.1.0-a.manifest",
+    "version": "3.1.0",
+    "groupVersions": {
+        "0": "3.1.0"
+    },
+    "engineVersion" : "Cocos2d-JS v3.15.1"
+}

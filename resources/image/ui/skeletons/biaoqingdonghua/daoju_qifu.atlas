@@ -1,0 +1,167 @@
+
+daoju_qifu.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+baodianguang
+  rotate: false
+  xy: 520, 154
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+beijing
+  rotate: false
+  xy: 224, 118
+  size: 164, 136
+  orig: 164, 136
+  offset: 0, 0
+  index: -1
+biyan
+  rotate: false
+  xy: 950, 229
+  size: 67, 25
+  orig: 67, 25
+  offset: 0, 0
+  index: -1
+deng
+  rotate: false
+  xy: 359, 53
+  size: 24, 43
+  orig: 24, 43
+  offset: 0, 0
+  index: -1
+deng2
+  rotate: false
+  xy: 336, 18
+  size: 21, 32
+  orig: 21, 32
+  offset: 0, 0
+  index: -1
+deng3
+  rotate: false
+  xy: 359, 27
+  size: 16, 24
+  orig: 16, 24
+  offset: 0, 0
+  index: -1
+fangsheguang
+  rotate: false
+  xy: 2, 34
+  size: 220, 220
+  orig: 220, 220
+  offset: 0, 0
+  index: -1
+juanzhou_1
+  rotate: false
+  xy: 520, 136
+  size: 80, 16
+  orig: 80, 16
+  offset: 0, 0
+  index: -1
+juanzhou_s
+  rotate: false
+  xy: 2, 12
+  size: 84, 20
+  orig: 84, 20
+  offset: 0, 0
+  index: -1
+kuoshanguang
+  rotate: false
+  xy: 390, 126
+  size: 128, 128
+  orig: 128, 128
+  offset: 0, 0
+  index: -1
+liuguang1
+  rotate: true
+  xy: 224, 2
+  size: 48, 110
+  orig: 48, 110
+  offset: 0, 0
+  index: -1
+shizitou
+  rotate: false
+  xy: 622, 144
+  size: 97, 60
+  orig: 97, 60
+  offset: 0, 0
+  index: -1
+shizitou_s
+  rotate: false
+  xy: 224, 52
+  size: 100, 64
+  orig: 100, 64
+  offset: 0, 0
+  index: -1
+yunwu
+  rotate: false
+  xy: 147, 18
+  size: 54, 14
+  orig: 54, 14
+  offset: 0, 0
+  index: -1
+yunwu2
+  rotate: false
+  xy: 520, 121
+  size: 54, 13
+  orig: 54, 13
+  offset: 0, 0
+  index: -1
+yunwu3
+  rotate: false
+  xy: 879, 228
+  size: 69, 26
+  orig: 69, 26
+  offset: 0, 0
+  index: -1
+yunwu_s
+  rotate: false
+  xy: 326, 98
+  size: 57, 18
+  orig: 57, 18
+  offset: 0, 0
+  index: -1
+yunwu_s2
+  rotate: false
+  xy: 88, 15
+  size: 57, 17
+  orig: 57, 17
+  offset: 0, 0
+  index: -1
+yunwu_s3
+  rotate: false
+  xy: 804, 225
+  size: 73, 29
+  orig: 73, 29
+  offset: 0, 0
+  index: -1
+zhuazi1
+  rotate: true
+  xy: 326, 52
+  size: 44, 31
+  orig: 44, 31
+  offset: 0, 0
+  index: -1
+zi
+  rotate: true
+  xy: 622, 206
+  size: 48, 110
+  orig: 48, 110
+  offset: 0, 0
+  index: -1
+zi_s
+  rotate: false
+  xy: 804, 204
+  size: 52, 19
+  orig: 52, 19
+  offset: 0, 0
+  index: -1
+zui
+  rotate: false
+  xy: 734, 205
+  size: 68, 49
+  orig: 68, 49
+  offset: 0, 0
+  index: -1

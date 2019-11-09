@@ -1,0 +1,237 @@
+
+daoju_plane.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+_0000_dianhua5
+  rotate: true
+  xy: 347, 764
+  size: 41, 13
+  orig: 41, 13
+  offset: 0, 0
+  index: -1
+_0001_dianhua4
+  rotate: false
+  xy: 859, 168
+  size: 31, 12
+  orig: 31, 12
+  offset: 0, 0
+  index: -1
+_0002_dianhua3
+  rotate: false
+  xy: 903, 740
+  size: 23, 12
+  orig: 23, 12
+  offset: 0, 0
+  index: -1
+_0003_dianhua2
+  rotate: false
+  xy: 2, 2
+  size: 35, 19
+  orig: 35, 19
+  offset: 0, 0
+  index: -1
+_0004_dianhua1
+  rotate: false
+  xy: 903, 859
+  size: 69, 163
+  orig: 69, 163
+  offset: 0, 0
+  index: -1
+explosion01
+  rotate: false
+  xy: 2, 611
+  size: 343, 194
+  orig: 343, 194
+  offset: 0, 0
+  index: -1
+explosion02
+  rotate: false
+  xy: 362, 828
+  size: 343, 194
+  orig: 343, 194
+  offset: 0, 0
+  index: -1
+explosion03
+  rotate: false
+  xy: 2, 415
+  size: 343, 194
+  orig: 343, 194
+  offset: 0, 0
+  index: -1
+explosion04
+  rotate: false
+  xy: 2, 219
+  size: 343, 194
+  orig: 343, 194
+  offset: 0, 0
+  index: -1
+explosion05
+  rotate: false
+  xy: 2, 23
+  size: 343, 194
+  orig: 343, 194
+  offset: 0, 0
+  index: -1
+explosion06
+  rotate: true
+  xy: 707, 679
+  size: 343, 194
+  orig: 343, 194
+  offset: 0, 0
+  index: -1
+explosion07
+  rotate: false
+  xy: 362, 632
+  size: 343, 194
+  orig: 343, 194
+  offset: 0, 0
+  index: -1
+explosion08
+  rotate: false
+  xy: 347, 436
+  size: 343, 194
+  orig: 343, 194
+  offset: 0, 0
+  index: -1
+explosion09
+  rotate: false
+  xy: 347, 240
+  size: 343, 194
+  orig: 343, 194
+  offset: 0, 0
+  index: -1
+explosion10
+  rotate: false
+  xy: 347, 44
+  size: 343, 194
+  orig: 343, 194
+  offset: 0, 0
+  index: -1
+explosion11
+  rotate: true
+  xy: 692, 287
+  size: 343, 194
+  orig: 343, 194
+  offset: 0, 0
+  index: -1
+guangdian
+  rotate: false
+  xy: 842, 650
+  size: 27, 27
+  orig: 27, 27
+  offset: 0, 0
+  index: -1
+guangxian
+  rotate: true
+  xy: 814, 168
+  size: 117, 43
+  orig: 117, 43
+  offset: 0, 0
+  index: -1
+guangxian2
+  rotate: false
+  xy: 707, 643
+  size: 50, 3
+  orig: 50, 3
+  offset: 0, 0
+  index: -1
+miaozhun1
+  rotate: false
+  xy: 692, 43
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+miaozhun2
+  rotate: false
+  xy: 692, 165
+  size: 120, 120
+  orig: 120, 120
+  offset: 0, 0
+  index: -1
+missile
+  rotate: false
+  xy: 707, 648
+  size: 133, 29
+  orig: 133, 29
+  offset: 0, 0
+  index: -1
+plane
+  rotate: false
+  xy: 2, 807
+  size: 358, 215
+  orig: 358, 215
+  offset: 0, 0
+  index: -1
+smoke01
+  rotate: true
+  xy: 903, 754
+  size: 103, 30
+  orig: 103, 30
+  offset: 0, 0
+  index: -1
+smoke02
+  rotate: true
+  xy: 974, 919
+  size: 103, 30
+  orig: 103, 30
+  offset: 0, 0
+  index: -1
+smoke03
+  rotate: true
+  xy: 814, 63
+  size: 103, 30
+  orig: 103, 30
+  offset: 0, 0
+  index: -1
+smoke04
+  rotate: true
+  xy: 935, 754
+  size: 103, 30
+  orig: 103, 30
+  offset: 0, 0
+  index: -1
+smoke05
+  rotate: true
+  xy: 859, 182
+  size: 103, 30
+  orig: 103, 30
+  offset: 0, 0
+  index: -1
+smoke06
+  rotate: false
+  xy: 347, 12
+  size: 103, 30
+  orig: 103, 30
+  offset: 0, 0
+  index: -1
+smoke07
+  rotate: false
+  xy: 452, 12
+  size: 103, 30
+  orig: 103, 30
+  offset: 0, 0
+  index: -1
+smoke08
+  rotate: false
+  xy: 557, 12
+  size: 103, 30
+  orig: 103, 30
+  offset: 0, 0
+  index: -1
+smoke09
+  rotate: true
+  xy: 846, 63
+  size: 103, 30
+  orig: 103, 30
+  offset: 0, 0
+  index: -1
+smoke10
+  rotate: true
+  xy: 967, 754
+  size: 103, 30
+  orig: 103, 30
+  offset: 0, 0
+  index: -1

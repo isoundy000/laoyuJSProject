@@ -1,0 +1,83 @@
+
+quanguobao_bisaichang.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1/1_00000
+  rotate: false
+  xy: 2, 730
+  size: 400, 180
+  orig: 400, 180
+  offset: 0, 0
+  index: -1
+1/1_00001
+  rotate: false
+  xy: 2, 548
+  size: 400, 180
+  orig: 400, 180
+  offset: 0, 0
+  index: -1
+1/1_00002
+  rotate: false
+  xy: 404, 730
+  size: 400, 180
+  orig: 400, 180
+  offset: 0, 0
+  index: -1
+1/1_00003
+  rotate: false
+  xy: 2, 366
+  size: 400, 180
+  orig: 400, 180
+  offset: 0, 0
+  index: -1
+1/1_00004
+  rotate: false
+  xy: 404, 548
+  size: 400, 180
+  orig: 400, 180
+  offset: 0, 0
+  index: -1
+1/1_00005
+  rotate: false
+  xy: 2, 184
+  size: 400, 180
+  orig: 400, 180
+  offset: 0, 0
+  index: -1
+1/1_00006
+  rotate: false
+  xy: 404, 366
+  size: 400, 180
+  orig: 400, 180
+  offset: 0, 0
+  index: -1
+1/1_00007
+  rotate: true
+  xy: 806, 510
+  size: 400, 180
+  orig: 400, 180
+  offset: 0, 0
+  index: -1
+1/1_00008
+  rotate: false
+  xy: 2, 2
+  size: 400, 180
+  orig: 400, 180
+  offset: 0, 0
+  index: -1
+1/1_00009
+  rotate: false
+  xy: 404, 184
+  size: 400, 180
+  orig: 400, 180
+  offset: 0, 0
+  index: -1
+878799951230135432
+  rotate: true
+  xy: 806, 192
+  size: 316, 106
+  orig: 316, 106
+  offset: 0, 0
+  index: -1

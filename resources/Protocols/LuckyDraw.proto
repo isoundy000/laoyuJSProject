@@ -1,0 +1,82 @@
+//版本 1.0.0
+//配置中的奖励结构,展示
+message LD_RewardShowData
+{
+    required int32 index            = 1; //转盘位置
+    required string itemurl         = 2; //道具url
+    required string itemname        = 3; //道具名称
+}
+
+//抽奖消耗
+message LD_DrawCosume
+{
+    required int32 coin            = 1; //金币消耗数量
+    required int32 drawticket           = 2; //抽奖券消耗数量
+}
+
+//中奖名单用户结构
+message LD_WinnerData
+{
+    required string nickname        = 1; //昵称
+    required string msg             = 2; //中奖信息
+}
+
+//获取抽奖券次数和奖励配置
+message LD_GetDrawStockInfoReq
+{
+    required string userid          = 1; //用户名
+    optional string channel 		= 2; //渠道
+    optional string version		 	= 3; //版本
+    optional string package 		= 4; //包名
+    required string gameid 			= 5; //游戏ID
+}
+
+message LD_GetDrawStockInfoAck
+{
+    required string userid           = 1; //用户名
+    required int32 resultcode        = 2; //操作结果（0:成功）
+    required string hint             = 3; //错误提示信息
+    required int32 ticketcnt         = 4; //剩余抽奖次数信息
+    repeated LD_RewardShowData showcfg   = 5; //展示的奖励内容
+    optional LD_DrawCosume consume       = 6; //转盘消耗
+    optional int32 coinlimit        = 7; //金币抽奖，金币数量限制
+}
+
+//获取中奖名单
+message LD_GetDrawWinnerInfoReq
+{
+    required string userid          = 1; //用户名
+    optional string channel 		= 2; //渠道
+    optional string version		 	= 3; //版本
+    optional string package 		= 4; //包名
+    required string gameid 			= 5; //游戏ID
+}
+
+message LD_GetDrawWinnerInfoAck
+{
+    required string userid           = 1; //用户名
+    required int32 resultcode        = 2; //操作结果（0:成功）
+    required string hint             = 3; //错误提示信息
+    repeated LD_WinnerData winners   = 4; //中奖名单
+}
+
+//抽奖
+message LD_DoLuckyDrawReq
+{
+    required string userid          = 1; //用户名
+    optional string channel 		= 2; //渠道
+    optional string version		 	= 3; //版本
+    optional string package 		= 4; //包名
+    required string gameid 			= 5; //游戏ID
+    required string type            = 6; //抽奖类型("coin":金币抽奖,"drawticket":抽奖券抽奖)
+}
+
+message LD_DoLuckyDrawAck
+{
+    required string userid                  = 1; //用户名
+    required int32 resultcode               = 2; //操作结果（0:成功）
+    required string hint                    = 3; //错误提示信息
+    required int32 index                    = 4; //抽中的奖励
+    required string type                    = 5; //抽奖类型（"coin":金币抽奖,"drawticket":抽奖券抽奖）
+    required int32 remaincount              = 6; //剩余抽奖券数量
+}

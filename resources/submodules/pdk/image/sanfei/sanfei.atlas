@@ -1,0 +1,153 @@
+
+sanfei.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+feiji1
+  rotate: false
+  xy: 2, 154
+  size: 350, 350
+  orig: 350, 350
+  offset: 0, 0
+  index: -1
+feiji2
+  rotate: false
+  xy: 339, 11
+  size: 171, 113
+  orig: 171, 113
+  offset: 0, 0
+  index: -1
+liuguang01
+  rotate: false
+  xy: 691, 142
+  size: 34, 25
+  orig: 34, 25
+  offset: 0, 0
+  index: -1
+liuguang02
+  rotate: false
+  xy: 512, 99
+  size: 34, 25
+  orig: 34, 25
+  offset: 0, 0
+  index: -1
+liuguang03
+  rotate: false
+  xy: 919, 331
+  size: 34, 25
+  orig: 34, 25
+  offset: 0, 0
+  index: -1
+liuguang04
+  rotate: true
+  xy: 993, 470
+  size: 34, 25
+  orig: 34, 25
+  offset: 0, 0
+  index: -1
+liuguang05
+  rotate: false
+  xy: 727, 142
+  size: 34, 25
+  orig: 34, 25
+  offset: 0, 0
+  index: -1
+liuguang06
+  rotate: false
+  xy: 512, 72
+  size: 34, 25
+  orig: 34, 25
+  offset: 0, 0
+  index: -1
+liuguang07
+  rotate: false
+  xy: 548, 99
+  size: 34, 25
+  orig: 34, 25
+  offset: 0, 0
+  index: -1
+liuguang08
+  rotate: false
+  xy: 919, 304
+  size: 34, 25
+  orig: 34, 25
+  offset: 0, 0
+  index: -1
+xian
+  rotate: false
+  xy: 919, 358
+  size: 72, 146
+  orig: 72, 146
+  offset: 0, 0
+  index: -1
+yan01
+  rotate: false
+  xy: 2, 78
+  size: 335, 74
+  orig: 335, 74
+  offset: 0, 0
+  index: -1
+yan02
+  rotate: false
+  xy: 354, 430
+  size: 335, 74
+  orig: 335, 74
+  offset: 0, 0
+  index: -1
+yan03
+  rotate: false
+  xy: 2, 2
+  size: 335, 74
+  orig: 335, 74
+  offset: 0, 0
+  index: -1
+yan04
+  rotate: false
+  xy: 354, 354
+  size: 335, 74
+  orig: 335, 74
+  offset: 0, 0
+  index: -1
+yan05
+  rotate: false
+  xy: 354, 278
+  size: 335, 74
+  orig: 335, 74
+  offset: 0, 0
+  index: -1
+yan06
+  rotate: false
+  xy: 354, 202
+  size: 335, 74
+  orig: 335, 74
+  offset: 0, 0
+  index: -1
+yan07
+  rotate: false
+  xy: 354, 126
+  size: 335, 74
+  orig: 335, 74
+  offset: 0, 0
+  index: -1
+yan08
+  rotate: true
+  xy: 691, 169
+  size: 335, 74
+  orig: 335, 74
+  offset: 0, 0
+  index: -1
+yan09
+  rotate: true
+  xy: 767, 169
+  size: 335, 74
+  orig: 335, 74
+  offset: 0, 0
+  index: -1
+yan10
+  rotate: true
+  xy: 843, 169
+  size: 335, 74
+  orig: 335, 74
+  offset: 0, 0
+  index: -1

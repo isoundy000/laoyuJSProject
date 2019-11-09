@@ -1,0 +1,20 @@
+
+woxianchu.png
+size: 1024,64
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+heitao3_woxianchu
+  rotate: false
+  xy: 308, 2
+  size: 247, 45
+  orig: 247, 45
+  offset: 0, 0
+  index: -1
+woying_woxianchu
+  rotate: false
+  xy: 2, 2
+  size: 304, 45
+  orig: 304, 45
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,222 @@
+
+feijizhadan.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+1_00000
+  rotate: false
+  xy: 2, 904
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+feiji
+  rotate: false
+  xy: 798, 848
+  size: 227, 136
+  orig: 227, 136
+  offset: 0, 0
+  index: -1
+huo/1_00000
+  rotate: false
+  xy: 84, 884
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+huo/1_00001
+  rotate: false
+  xy: 84, 884
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+huo/1_00002
+  rotate: false
+  xy: 186, 884
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+huo/1_00003
+  rotate: false
+  xy: 288, 884
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+huo/1_00004
+  rotate: false
+  xy: 288, 884
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+huo/1_00005
+  rotate: false
+  xy: 390, 884
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+huo/1_00006
+  rotate: false
+  xy: 492, 884
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+huo/1_00007
+  rotate: false
+  xy: 492, 884
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+huo/1_00008
+  rotate: false
+  xy: 594, 884
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+huo/1_00009
+  rotate: false
+  xy: 696, 884
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+zhadan
+  rotate: false
+  xy: 1027, 848
+  size: 227, 136
+  orig: 227, 136
+  offset: 0, 0
+  index: -1
+zhadan/guanghuan/1
+  rotate: false
+  xy: 1256, 704
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+zhadan/guanghuan/2
+  rotate: false
+  xy: 2, 602
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+zhadan/guanghuan/3
+  rotate: true
+  xy: 1658, 584
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+zhadan/guanghuan/4
+  rotate: false
+  xy: 404, 566
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+zhadan/guanghuan/5
+  rotate: false
+  xy: 806, 566
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+zhadan/zha/1
+  rotate: false
+  xy: 1208, 422
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+zhadan/zha/10
+  rotate: false
+  xy: 806, 2
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+zhadan/zha/2
+  rotate: false
+  xy: 2, 320
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+zhadan/zha/3
+  rotate: false
+  xy: 1610, 302
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+zhadan/zha/4
+  rotate: false
+  xy: 404, 284
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+zhadan/zha/5
+  rotate: false
+  xy: 806, 284
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+zhadan/zha/6
+  rotate: false
+  xy: 1208, 140
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+zhadan/zha/7
+  rotate: false
+  xy: 2, 38
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+zhadan/zha/8
+  rotate: false
+  xy: 1610, 20
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+zhadan/zha/9
+  rotate: false
+  xy: 404, 2
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1
+
+feijizhadan2.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+feiji1
+  rotate: false
+  xy: 2, 2
+  size: 800, 800
+  orig: 800, 800
+  offset: 0, 0
+  index: -1
+zhadan/zha/11
+  rotate: false
+  xy: 804, 522
+  size: 400, 280
+  orig: 400, 280
+  offset: 0, 0
+  index: -1

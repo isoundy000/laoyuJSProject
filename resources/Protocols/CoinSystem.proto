@@ -1,0 +1,124 @@
+//package CoinSystemPB;
+
+// 货币类型
+enum CoinType
+{
+	CoinType_Gold		    = 1;	// 金币
+	CoinType_ExchangeScore	= 2;	// 财富值
+}
+
+// 货币修改原因
+enum ModifyCoinReason
+{
+	// 增加
+	ModifyCoinReason_Gain_TicketCenter 		= 1;	// 彩票中心兑换金币
+	ModifyCoinReason_Gain_Recharge 			= 2;	// 充值兑换金币
+	ModifyCoinReason_Gain_Giveback_normal 	= 3;	// 普通场金币归还
+	ModifyCoinReason_Gain_Ranking_Win		= 4;	// 排位赛退赛兑换
+	ModifyCoinReason_Gain_FIRST_LOGIN		= 5;	// 首次登录
+	ModifyCoinReason_Gain_BIND_PHONE_WECHAT = 6;	// 绑定手机微信
+	ModifyCoinReason_Gain_Activity_Guess	= 7;	// 答题活动奖励
+	ModifyCoinReason_Gain_Free_Coin			= 8;	// 免充发放金币
+	ModifyCoinReason_Gain_Manual			= 9;	// 后台手动增加
+	ModifyCoinReason_Gain_Exchange_Coin		= 10;	// 兑换中心兑换金币
+	ModifyCoinReason_Gain_Recharge_Fail_Back= 11;	// 话费充值失败返还彩卡
+	ModifyCoinReason_Gain_RSilver_Reward	= 12;	// 排位赛第二名奖励
+	ModifyCoinReason_Gain_Share_Reward		= 13;	// 分享奖励金币
+	ModifyCoinReason_Gain_Born_Child		= 14;	// 发展一级下线奖励金币
+	ModifyCoinReason_Gain_Share_Compensate	= 15;	// 分享补偿金币
+	ModifyCoinReason_Gain_Item_AddCoin		= 16;	// 通过道具增加金币
+	ModifyCoinReason_Gain_Item_AddCoinTicket= 17;	// 通过道具增加彩卡
+	ModifyCoinReason_Gain_Match_Signup_Back	= 18;	// 比赛报名费退还
+	ModifyCoinReason_Gain_Match_Round_Back	= 19;	// 每轮返还报名费
+	ModifyCoinReason_Gain_PublicWechat		= 20;	// 关注微信公众号奖励
+	ModifyCoinReason_Gain_Obligate_4		= 21;	// 预留
+	ModifyCoinReason_Gain_Obligate_5		= 22;	// 预留
+	ModifyCoinReason_Gain_Obligate_6		= 23;	// 预留
+	ModifyCoinReason_Gain_Obligate_7		= 24;	// 预留
+	
+	// 扣除
+	ModifyCoinReason_Consume_TicketCenter 				= 100;	// 彩票中心消耗金币
+	ModifyCoinReason_Consume_RankingService 			= 101;	// 排位赛服务费
+	ModifyCoinReason_Consume_NormalGame_Service			= 102;	// 普通场服务费
+	ModifyCoinReason_Consume_NormalGame_Lose			= 103;	// 普通场输的
+	ModifyCoinReason_Consume_ExchangeCenter				= 104;	// 兑换中心兑换扣除
+	ModifyCoinReason_Consume_Ranking_Singup				= 105;	// 排位赛报名费用
+	ModifyCoinReason_Consume_Bringin_NormalGame			= 106;	// 普通场金币带入
+	ModifyCoinReason_Consume_Use_Speaker				= 107;	// 使用喇叭
+	ModifyCoinReason_Consume_Manual						= 108;	// 后台手动扣除
+	ModifyCoinReason_Consume_Signup						= 109;	// 比赛报名费扣除
+	ModifyCoinReason_Consume_Table_UseEmojToOther		= 110;	// 桌内对他人使用表情扣除金币
+	ModifyCoinReason_Consume_Mall_CoinBuy				= 111;	// 商城消耗金币购买
+	ModifyCoinReason_Consume_Mall_CoinTicketBuy			= 112;	// 商城消耗彩卡购买
+	ModifyCoinReason_Consume_ExchangeCenter_Coin		= 113;	// 兑换商城消耗金币兑换
+	ModifyCoinReason_Consume_Obligate_6					= 114;	// 预留1
+	ModifyCoinReason_Consume_Obligate_7					= 115;	// 预留2
+	ModifyCoinReason_Consume_Obligate_8					= 116;	// 预留3
+	ModifyCoinReason_Consume_Obligate_9					= 117;	// 预留4
+	ModifyCoinReason_Consume_Obligate_10				= 118;	// 预留5
+}
+
+// 货币基本结构
+message UserCoinInfo
+{
+	required CoinType type		= 1;	// 货币类型
+	required int64 value		= 2;	// 货币数量
+}
+
+// 修改货币基本结构
+message ModifyUserCoinInfo
+{
+	required UserCoinInfo coin			= 1;	// 货币改变量
+	required ModifyCoinReason reason	= 2;	// 修改原因
+	optional int64 curvalue				= 3;	// 改变后的货币数量
+}
+
+// 获取货币信息请求
+message GetUserCoinReq
+{
+	required string uid					= 1;	// 玩家UID
+	repeated CoinType type				= 2;	// 要获取的货币类型
+}
+
+// 获取货币信息回包
+message GetUserCoinAck
+{
+	required int32 result		= 1;	// 结果 0:成功 其他:失败
+	repeated UserCoinInfo coins	= 2;	// 货币信息
+}
+
+// 获取货币订单详情请求
+message GetOrderDetailByIDReq
+{
+	required string orderid = 1;		// 订单ID
+}
+
+// 获取货币订单详情回包
+message GetOrderDetailByIDAck
+{
+	required int32 result	= 1;		// 结果 0:成功 1:订单不存在 其他:失败
+}
+
+// 修改货币信息请求
+message ModifyUserCoinReq
+{
+	required string uid					= 1;	// 玩家UID
+	repeated ModifyUserCoinInfo mods	= 2;	// 改变信息
+	required string ip					= 3;	// 请求者IP
+	required string gametype			= 4;	// 游戏类型
+	optional string orderid				= 5;	// 订单ID
+}
+
+// 修改货币信息回包
+message ModifyUserCoinAck
+{
+	required int32 result				= 1;	// 结果 0:成功 其他:失败
+	repeated ModifyUserCoinInfo coins	= 2;	// 改变后的货币信息
+}
+
+// 修改货币信息通知
+message ModifyUserCoinMsg
+{
+	required string uid					= 1;	// 玩家UID
+	repeated ModifyUserCoinInfo mods	= 2;	// 改变信息以及最新数量
+}

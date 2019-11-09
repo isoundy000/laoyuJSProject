@@ -1,0 +1,83 @@
+
+quanguobao_sanzhang.png
+size: 1024,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+fuyonglizi/fuyonglizi_00000
+  rotate: false
+  xy: 2, 610
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00002
+  rotate: false
+  xy: 2, 458
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00004
+  rotate: false
+  xy: 304, 610
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00006
+  rotate: false
+  xy: 2, 306
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00008
+  rotate: false
+  xy: 304, 458
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00010
+  rotate: false
+  xy: 606, 610
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00012
+  rotate: false
+  xy: 2, 154
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00014
+  rotate: false
+  xy: 304, 306
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00016
+  rotate: false
+  xy: 606, 458
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00018
+  rotate: false
+  xy: 2, 2
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+sanzhang
+  rotate: false
+  xy: 908, 710
+  size: 97, 50
+  orig: 97, 50
+  offset: 0, 0
+  index: -1

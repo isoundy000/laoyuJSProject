@@ -1,0 +1,55 @@
+
+daoju_chuizhuozi.png
+size: 1024,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+beizi
+  rotate: false
+  xy: 659, 65
+  size: 42, 38
+  orig: 42, 38
+  offset: 0, 0
+  index: -1
+liefeng
+  rotate: true
+  xy: 659, 40
+  size: 23, 31
+  orig: 23, 31
+  offset: 0, 0
+  index: -1
+yiying
+  rotate: false
+  xy: 2, 2
+  size: 152, 20
+  orig: 152, 20
+  offset: 0, 0
+  index: -1
+zhuo_you
+  rotate: false
+  xy: 441, 24
+  size: 152, 79
+  orig: 152, 79
+  offset: 0, 0
+  index: -1
+zhuo_zuo
+  rotate: false
+  xy: 277, 24
+  size: 162, 79
+  orig: 162, 79
+  offset: 0, 0
+  index: -1
+zhuozi01
+  rotate: false
+  xy: 2, 24
+  size: 273, 79
+  orig: 273, 79
+  offset: 0, 0
+  index: -1
+zhuozi02
+  rotate: false
+  xy: 595, 37
+  size: 62, 66
+  orig: 62, 66
+  offset: 0, 0
+  index: -1

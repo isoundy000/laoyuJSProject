@@ -1,0 +1,12 @@
+source 'https://github.com/CocoaPods/Specs.git'
+source 'https://gitee.com/cg16888/yygame_pod.git'
+platform :ios, '8.0'
+
+target 'ttqmdp-mobile' do
+pod 'WeChatWithMagicWindow'
+pod 'AFNetworking'
+pod 'BMKLocationKit'
+pod 'Bugly'
+pod 'AgoraRtcEngine_iOS','~> 1.13.0'
+pod 'AlicloudPush', :source => 'https://github.com/aliyun/aliyun-specs.git'
+end

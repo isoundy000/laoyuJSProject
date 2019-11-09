@@ -1,0 +1,16 @@
+//
+// Prefix header for all source files of the 'majiang' target in the 'majiang' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+	#import <UIKit/UIKit.h>
+#endif
+
+#define ADD_CLASS_PREFIX "ttqmdpclass"
+#define ADD_CLASS_SUFFIX "ttqmdpclass"
+#define ADD_METHOD_PREFIX "ttqmdpmethod"
+#define ADD_METHOD_SUFFIX "ttqmdpmethod"
+
+#define ADD_CLASS(x) ttqmdpclass##x##ttqmdpclass
+#define ADD_FUN(x) ttqmdpmethod##x##ttqmdpmethod

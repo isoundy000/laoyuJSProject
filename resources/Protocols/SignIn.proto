@@ -1,0 +1,184 @@
+//签到数据
+message SignData
+{
+    required int64 time                      = 1;        //签到时间点的毫秒值（1970年1月1日至今经历的毫秒数）
+    required int32 state                     = 2;        //签到状态 （0： 未签到 1：已签到 2：已补签）
+    required int32 reward                    = 3;        //奖励领取情况（0：未领取 1：领取）
+}
+
+//增益条件
+message BuffCondition
+{
+    required string type                    = 1;        //增益条件（normal: 普通增益 vip: vip用户增益）
+    optional string code                    = 2;        //如果是vip增益，该字段表示，游戏中，vip道具的code码。（普通增益情况下该字段无用）
+}
+
+//奖励加成
+message BuffConfig
+{
+    required BuffCondition condition        = 1;        //增益条件，限定该条buff在什么条件下才有效。
+    required int32 type                     = 2;        //加成方式（1:按百分比加成  2:按值加成）
+    required int32 val                      = 3;        //相对于上次奖励金额，本次增益的金额值，或上次金额的百分比
+    optional int32 can_interrupt            = 4;        //签到中断后，加成增幅是否被影响（0：中断后，加成重新计算 1：中断后，加成继续按上次幅度计算  vip加成时，该字段不需要）
+}
+
+//奖励数据
+message RewardData
+{
+    required string good_code               = 1;        //奖励id
+    required int32 val                      = 2;        //奖励数量
+    required int32 good_type                = 3;        //奖励类型
+    optional string name                    = 4;        //奖励道具名称(该字段有值时，可获取该字段，无值时，自行获取)
+    optional string url                     = 5;        //道具图标地址(该字段有值时，可获取该字段，无值时，自行获取)
+    repeated BuffConfig buff                = 6;        //奖励加成(包括普通每次增益 vip每次增益加成)(注：增益的先后顺序按照数组中元素顺序)
+}
+
+//阶段
+message Period
+{
+    required string type                    = 1;        //签到阶段（"once":无阶段(整个周期只有一个阶段) "hour":每小时一个阶段 "day":每天一个阶段
+                                                        //"time_fixed":以固定时长为阶段 单位分钟 "time":以配置可变时长为阶段 单位分钟 "time_formula":以公式可变时长为阶段 value对应程序中某公式）
+    repeated int32  value                   = 2;        //time_fixed time time_formula 三种阶段类型需要该字段，代表对应的时长，详见上方type注释
+}
+
+//
+message RewardList
+{
+    repeated RewardData base                 = 1;
+    optional int32 goal                      = 2;       //累计签到或者连续签到时，需要达到的目标次数。月签（即按次签）时，该字段，0表示每天奖励都一样，有值表示，该日签到奖励。
+}
+
+//结算
+message Calc
+{
+    required string type                    = 1;        //签到类型（once：单次签到 addup：累计签到 continue：连续签到）
+    repeated int32 value                    = 2;        //累计签到或者连续签到时，需要累计的天数或者连续签到的天数
+    repeated RewardList reward              = 3;        //奖励
+}
+
+//签到配置数据
+message SignConfig
+{
+    required string timely                  = 1;        //签到周期类型（"once"：一次性 "week"：每周刷新 "month"：每月刷新 "day"：每天刷新）
+    repeated Period period                  = 2;        //阶段
+    required int64 starttime                = 3;        //签到有效期(或周期)开始时间毫秒值（1970年1月1日至今经历的毫秒数）
+    required int64 endtime                  = 4;        //签到有效期(或周期)结束时间毫秒值（1970年1月1日至今经历的毫秒数）
+    repeated Calc calc                      = 5;        //签到结算方式及奖励
+}
+
+//显示用的签到配置
+message SignShowConfig
+{
+    required int32 index                    = 1;        //索引
+    required string name                    = 2;        //道具名称
+    required string url                     = 3;        //格子url
+}
+
+//客户端补签领奖信息（补签（领奖）哪一天（次））
+message SignTo
+{
+    required string type                    = 1;        //签到类型 （根据签到配置中的设定 once：单次签到 addup：累计签到 continue：连续签到）
+    required int64 val                      = 2;        //补签(或领取) once类型签到，val值为要领取奖励的日期（或要补签的日期）（1970年1月1日至领奖日期经历的毫秒数）
+                                                        //补签(或领取) addup，continue类型签到，val值分别为，累计多少次 连续多少次的次数
+}
+
+//玩家签到情况及领奖情况
+message SignHistory
+{
+    repeated SignData signinfo              = 1;        //玩家历史签到信息
+    optional int32 addupcount               = 2;        //如果有累计n天给奖励类型签到，该字段表示目前累计签到的天数
+    optional int32 continuecount            = 3;        //如果有连续n天给奖励类型签到，该字段表示目前连续签到的天数
+    repeated int32 addupreward              = 4;        //已经领取的累计次数奖励 内容是需要达到的目标次数 (如[3,5] 代表累计3次 累计5次 给的奖励，目前已经领取)
+    repeated int32 continuereward           = 5;        //已经领取的连续次数奖励 内容是需要达到的目标次数 (如[3,5] 代表连续3次 连续5次 给的奖励，目前已经领取)
+}
+
+//获取玩家历史签到信息 - req
+message GetSignInfoReq
+{
+    required string userid                  = 1;        //用户名
+    required int32 gameid                   = 2;        //游戏id
+    required string configid                = 3;        //签到配置表id
+    required int32 clientversion            = 4;        //客户端版本号
+    optional string clientchannel           = 5;        //客户端渠道号
+    optional string pkgname                 = 6;        //客户端包名
+}
+
+//获取玩家历史签到信息 - ack
+message GetSignInfoAck
+{
+    required string userid                  = 1;        //用户名
+    required int32 result                   = 2;        //消息结果 （0：成功 1：其它错误（如数据库报错等服务器错误） 2：clientversion与configid匹配不成功 3：签到过期（针对一次性签到）)
+    optional SignHistory signhistory        = 3;        //玩家的签到情况及对应奖励领取情况
+    repeated SignShowConfig signconfig          = 4;        //签到配置数据
+    required int64 currenttime              = 5;        //当前时间毫秒值（1970年1月1日至领奖日期经历的毫秒数）
+    required string configid                = 6;        //签到配置表id
+    optional string hint                    = 7;        //错误提示（传空时，通过result值显示相关错误类型，有值时，可直接显示该字段文字内容）
+}
+
+//正常签到 - req
+message SignInReq
+{
+    required string userid                  = 1;        //用户名
+    required int32 gameid                   = 2;        //游戏id
+    required string configid                = 3;        //签到配置表id
+    required int32 clientversion            = 4;        //客户端版本号
+    optional string clientchannel           = 5;        //客户端渠道号
+    optional string pkgname                 = 6;        //客户端包名
+}
+
+//正常签到 - ack
+message SignInAck
+{
+    required string userid                  = 1;        //用户名
+    required int32 result                   = 2;        //消息结果 （0：成功 1：其它错误（如数据库报错等服务器错误） 2：clientversion与configid匹配不成功 3：签到过期（针对一次性签到）
+                                                        //4：当前阶段已经签过到 5：配置表错误（如未配相关奖励等必要参数）6：道具服领取奖励失败
+    required string configid                = 3;        //签到配置表id
+    optional string hint                    = 4;        //错误提示（传空时，通过result值显示相关错误类型，有值时，可直接显示该字段文字内容）
+    repeated RewardData items               = 5;        //领取的奖励
+}
+
+//补签
+message ReplenishSignReq
+{
+    required string userid                  = 1;        //用户名
+    required int32 gameid                   = 2;        //游戏id
+    required string configid                = 3;        //签到配置表id
+    required int32 clientversion            = 4;        //客户端版本号
+    optional string clientchannel           = 5;        //客户端渠道号
+    optional string pkgname                 = 6;        //客户端包名
+    required int64  signtime                = 7;        //补签的时期时间毫秒值（1970年1月1日至补签日期经历的毫秒数）
+}
+
+//补签
+message ReplenishSignAck
+{
+    required string userid                  = 1;        //用户名
+    required int32 result                   = 2;        //消息结果 （0：成功 1：其它错误（如数据库报错等服务器错误） 2：clientversion与configid匹配不成功 3：签到过期（针对一次性签到）
+                                                        //4：补签时间已经签过到 5：配置表错误（如未配相关奖励或签到类型等必要参数）6：道具服领取奖励失败 7：补签时间不在当前周期内 8:补签道具消耗失败
+    required string configid                = 3;        //签到配置表id
+    required int64 signtime                 = 4;        //补签的时期时间毫秒值（1970年1月1日至补签日期经历的毫秒数)
+    optional string hint                    = 5;        //错误提示（传空时，通过result值显示相关错误类型，有值时，可直接显示该字段文字内容）
+}
+
+//领奖（如累计奖励） - req
+message GetSignRewardReq
+{
+    required string userid                  = 1;        //用户名
+    required int32 gameid                   = 2;        //游戏id
+    required string configid                = 3;        //签到配置表id
+    required int32 clientversion            = 4;        //客户端版本号
+    optional string clientchannel           = 5;        //客户端渠道号
+    optional string pkgname                 = 6;        //客户端包名
+    required SignTo signto                  = 7;        //要领取哪一天（或哪个累计次数 哪个连续天数）的奖励
+}
+
+//领奖（如累计奖励） - ack
+message GetSignRewardAck
+{
+    required string userid                  = 1;        //用户名
+    required int32 result                   = 2;        //消息结果 （0：成功 1：1：其它错误（如数据库报错等服务器错误） 2：clientversion与configid匹配不成功 3：签到过期（针对一次性签到）
+                                                        //4：领奖的那一次，没有签到 5：配置表错误（如未配相关奖励或签到类型等必要参数） 6：道具服领取奖励失败 7：奖励已经领取过 ）
+    required string configid                = 3;        //签到配置表id
+    required SignTo signto                  = 4;        //领取的是哪一天（或哪个累计次数 哪个连续天数）的奖励
+    optional string hint                    = 5;        //错误提示（传空时，通过result值显示相关错误类型，有值时，可直接显示该字段文字内容）
+}

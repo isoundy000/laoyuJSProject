@@ -1,0 +1,202 @@
+
+daoju_ship.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+chuandi
+  rotate: false
+  xy: 377, 106
+  size: 244, 58
+  orig: 244, 58
+  offset: 0, 0
+  index: -1
+lihe
+  rotate: true
+  xy: 262, 2
+  size: 100, 112
+  orig: 100, 112
+  offset: 0, 0
+  index: -1
+ship
+  rotate: false
+  xy: 2, 364
+  size: 294, 145
+  orig: 294, 145
+  offset: 0, 0
+  index: -1
+shuibo01
+  rotate: false
+  xy: 2, 249
+  size: 258, 113
+  orig: 258, 113
+  offset: 0, 0
+  index: -1
+shuibo02
+  rotate: false
+  xy: 298, 396
+  size: 258, 113
+  orig: 258, 113
+  offset: 0, 0
+  index: -1
+shuibo03
+  rotate: false
+  xy: 2, 134
+  size: 258, 113
+  orig: 258, 113
+  offset: 0, 0
+  index: -1
+shuibo04
+  rotate: false
+  xy: 558, 396
+  size: 258, 113
+  orig: 258, 113
+  offset: 0, 0
+  index: -1
+shuibo05
+  rotate: false
+  xy: 2, 19
+  size: 258, 113
+  orig: 258, 113
+  offset: 0, 0
+  index: -1
+shuibo06
+  rotate: true
+  xy: 262, 104
+  size: 258, 113
+  orig: 258, 113
+  offset: 0, 0
+  index: -1
+shuibo07
+  rotate: false
+  xy: 377, 281
+  size: 258, 113
+  orig: 258, 113
+  offset: 0, 0
+  index: -1
+shuibo08
+  rotate: false
+  xy: 377, 166
+  size: 258, 113
+  orig: 258, 113
+  offset: 0, 0
+  index: -1
+shuihua01
+  rotate: false
+  xy: 823, 197
+  size: 116, 48
+  orig: 116, 48
+  offset: 0, 0
+  index: -1
+shuihua02
+  rotate: true
+  xy: 947, 331
+  size: 116, 48
+  orig: 116, 48
+  offset: 0, 0
+  index: -1
+shuihua03
+  rotate: false
+  xy: 839, 147
+  size: 116, 48
+  orig: 116, 48
+  offset: 0, 0
+  index: -1
+shuihua04
+  rotate: true
+  xy: 947, 213
+  size: 116, 48
+  orig: 116, 48
+  offset: 0, 0
+  index: -1
+shuiwen01
+  rotate: false
+  xy: 839, 114
+  size: 100, 31
+  orig: 100, 31
+  offset: 0, 0
+  index: -1
+shuiwen02
+  rotate: false
+  xy: 825, 81
+  size: 100, 31
+  orig: 100, 31
+  offset: 0, 0
+  index: -1
+shuiwen03
+  rotate: false
+  xy: 825, 48
+  size: 100, 31
+  orig: 100, 31
+  offset: 0, 0
+  index: -1
+shuiwen04
+  rotate: false
+  xy: 377, 73
+  size: 100, 31
+  orig: 100, 31
+  offset: 0, 0
+  index: -1
+star0282
+  rotate: false
+  xy: 376, 19
+  size: 52, 52
+  orig: 52, 52
+  offset: 0, 0
+  index: -1
+yinying01
+  rotate: false
+  xy: 818, 449
+  size: 200, 60
+  orig: 200, 60
+  offset: 0, 0
+  index: -1
+yinying02
+  rotate: true
+  xy: 637, 194
+  size: 200, 60
+  orig: 200, 60
+  offset: 0, 0
+  index: -1
+yinying03
+  rotate: true
+  xy: 699, 194
+  size: 200, 60
+  orig: 200, 60
+  offset: 0, 0
+  index: -1
+yinying04
+  rotate: true
+  xy: 761, 194
+  size: 200, 60
+  orig: 200, 60
+  offset: 0, 0
+  index: -1
+yinying05
+  rotate: false
+  xy: 637, 132
+  size: 200, 60
+  orig: 200, 60
+  offset: 0, 0
+  index: -1
+yinying06
+  rotate: false
+  xy: 623, 70
+  size: 200, 60
+  orig: 200, 60
+  offset: 0, 0
+  index: -1
+yinying07
+  rotate: true
+  xy: 823, 247
+  size: 200, 60
+  orig: 200, 60
+  offset: 0, 0
+  index: -1
+yinying08
+  rotate: true
+  xy: 885, 247
+  size: 200, 60
+  orig: 200, 60
+  offset: 0, 0
+  index: -1

@@ -1,0 +1,113 @@
+message RewardData
+{
+    required string code                    = 1; //奖励code
+    required int32 val                      = 2; //奖励数量
+    required int32 type                     = 3; //奖励类型：1:货币 2:礼包 3:道具 4:抽奖券 5:实物
+}
+
+//增加活跃值的各个功能枚举
+enum Active_ChangeReason
+{
+	// 增加
+    Ddz_Ranking_Free_Join                   = 10101; //参与斗地主比赛场-免费比赛
+    Ddz_Ranking_Bigreward_Join              = 10102; //参与斗地主比赛场-大奖赛
+    Ddz_Casual_Rookie_Join                  = 10201; //参与斗地主自由场-新手场
+    Ddz_Casual_Rookie_Junior_Join           = 10202; //参与斗地主自由场-初级场
+    Ddz_Casual_Rookie_Medium_Join           = 10203; //参与斗地主自由场-中级场
+    Ddz_Casual_Rookie_Senior_Join           = 10204; //参与斗地主自由场-高级场
+    Ddz_Draw_Coin                           = 10301; //金币抽奖
+    Ddz_Draw_Colorticket                    = 10302; //彩卡抽奖
+    Ddz_Invite_Subs                         = 10400; //邀请新人
+    Ddz_Recharge_5_yuan                     = 10501; //充值5元
+    Ddz_Recharge_10_yuan                    = 10502; //充值10元
+    Ddz_Recharge_20_yuan                    = 10503; //充值20元
+    Ddz_Recharge_50_yuan                    = 10504; //充值50元
+    Ddz_Recharge_100_yuan                   = 10505; //充值100元
+    Ddz_Recharge_200_yuan                   = 10506; //充值200元
+    Maj_Ranking_Free_Join                   = 20101; //参与麻将比赛场-免费比赛
+    Maj_Ranking_Bigreward_Join              = 20102; //参与麻将比赛场-大奖赛
+    Maj_Casual_Rookie_Join                  = 20201; //参与麻将自由场-新手场
+    Maj_Casual_Rookie_Junior_Join           = 20202; //参与麻将自由场-初级场
+    Maj_Casual_Rookie_Medium_Join           = 20203; //参与麻将自由场-中级场
+    Maj_Casual_Rookie_Senior_Join           = 20204; //参与麻将自由场-高级场
+}
+
+//增加活跃值
+message Active_ModifyActiveValueReq
+{
+    required string userid                  = 1; //用户名
+    required string gameid 			        = 2; //游戏ID
+    required Active_ChangeReason reason     = 3; //活跃值变化触发点
+}
+
+message Active_ModifyActiveValueAck
+{
+    required string userid                  = 1; //用户名
+    required int32 resultcode               = 2; //操作结果（0:成功）
+    required string hint                    = 3; //错误提示信息
+    required int32 changeval                = 4; //变化活跃值
+}
+
+//任务列表结构
+message Task_OneTaskData
+{
+    required string taskid                  = 1; //任务唯一id
+    required int32 progress                 = 2; //当前任务进度
+    required int32 target                   = 3; //任务达成进度值
+    required int32 brecv                    = 4; //是否已领奖
+    required string taskdesc                = 5; //任务描述
+    repeated RewardData reward              = 6; //奖励列表
+}
+
+//任务进度更新结构
+message Task_KidsData
+{
+    required int32 kid                      = 1; //活跃值变化触发点 (3010000:所有游戏，进行一局比赛)
+    required int32 value                    = 2; //任务列表
+}
+
+//获取任务接口
+message Task_GetUserTaskListReq
+{
+    required string userid                  = 1; //用户名
+    required string gameid 			        = 2; //游戏ID
+}
+
+message Task_GetUserTaskListAck
+{
+    required string userid                  = 1; //用户名
+    required int32 resultcode               = 2; //操作结果（0:成功）
+    required string hint                    = 3; //错误提示信息
+    repeated Task_OneTaskData tasklist      = 4; //任务列表
+}
+
+//更新任务进度
+message Task_ModifyTaskProgressReq
+{
+    required string userid                  = 1; //用户名
+    required string gameid 			        = 2; //游戏ID
+    repeated Task_KidsData kids             = 3; //活跃值变化触发点
+}
+
+message Task_ModifyTaskProgressAck
+{
+    required string userid                  = 1; //用户名
+    required int32 resultcode               = 2; //操作结果（0:成功）
+    required string hint                    = 3; //错误提示信息
+}
+
+//领取任务奖励
+message Task_RecvRewardReq
+{
+    required string userid                  = 1; //用户名
+    required string gameid 			        = 2; //游戏ID
+    required string taskid                  = 3; //要领取的taskid 任务唯一id
+}
+
+message Task_RecvRewardAck
+{
+    required string userid                  = 1; //用户名
+    required int32 resultcode               = 2; //操作结果（0:成功）
+    required string hint                    = 3; //错误提示信息
+    repeated RewardData reward              = 4; //奖励列表
+}

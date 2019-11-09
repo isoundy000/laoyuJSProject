@@ -1,0 +1,7 @@
+{
+	"packageUrl": "http://192.168.199.188:81/hotupdate/sgame/mahjong/",
+	"remoteManifestUrl": "http://192.168.199.188:81/hotupdate/sgame/mahjong/project.manifest",
+	"remoteVersionUrl": "http://192.168.199.188:81/hotupdate/sgame/mahjong/version.manifest",
+	"version": "0.0.1",
+	"searchPaths": []
+}

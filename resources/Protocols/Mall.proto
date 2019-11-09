@@ -1,0 +1,293 @@
+
+// 商品数据
+message ProductData
+{
+    required string id = 1;               // 商品id
+    required string name = 2;             // 商品名称
+    required string url = 3;              // 商品图像
+    required string desc = 4;             // 商品描述
+    required int32 num = 5;               // 购买数量
+    required int32 consume_type = 6;      // 商品购买消耗货币类型   1:金币  2:兑换券  3:人民币
+    required float price = 7;             // 商品价格
+    required int32 sell_type = 8;         // 商品售卖类型  1:促销   2:热卖  3:火爆  4:限时  5:首充
+    required int32 agency = 9;            // 购买商品是否可立即成为代理  1:不可以   2:可以
+    required int32 type = 10;             // 商品类型  1:金币  2:道具
+    optional string starttime = 11;       // 开售时间  限时类商品售卖的开始时间
+    optional string endtime = 12;         // 停售时间  限时类商品售卖的结束时间
+}
+
+message ProductExchangeData
+{
+    required string id = 1;               // 商品id
+    required string name = 2;             // 商品名称
+    required string url = 3;              // 商品图像
+    required string desc = 4;             // 商品描述
+    required int32 consume_type = 5;      // 商品购买消耗货币类型   1:金币  2:兑换券  3:人民币
+    required int32 price = 6;             // 商品价格
+    optional int32 grant = 7;             // 兑换商品发放方式    1:直充    2:快递 3:卡密  4:金币
+    required int32 tag_type = 8;          // 标签类型  1:手机充值卡  2:京东卡 3 食品类实物 4 家电类实物 5 电子类实物 6 金币
+    optional int32 operators = 9;         // 运营商  用于区分手机充值卡运营商  1:联通  2:移动  3:电信
+}
+
+// 商品库存信息
+message ProductStock
+{
+    required string id = 1;               // 商品id
+    required int32 stock = 2;             // 商品库存量
+}
+
+// 玩家收件信息
+message ReceiverInfo
+{
+    required string name = 1;             // 收件人姓名
+    required string phone = 2;            // 收件人手机号
+    required string address = 3;          // 收件人地址
+    required string mail = 4;             // 收件地址邮编
+}
+
+// 兑换信息
+message ExchangeInfo
+{
+    required string id = 1;               // 商品id
+    required string name = 2;             // 商品名称
+    required string award_way = 3;        // 发奖方式
+    required string status = 4;           // 当前状态
+    required string time = 5;             // 兑奖时间
+    required int32 count = 6;             // 兑换数量
+}
+
+// 兑换信息
+message RechargeInfo
+{
+    required string id = 1;               // 商品id
+    required string name = 2;             // 商品名称
+    required float price = 3;             // 充值金额
+    required string status = 4;           // 当前状态
+    required string time = 5;             // 兑奖时间
+}
+
+message CardInfo
+{
+    required string id = 1;                // 商品id
+    required string card = 2;              // 卡号
+    required string name = 3;              // 商品名称
+    required int32 tag = 4;                // 标签类型   1:手机充值卡    2:京东卡
+    required int32 type = 5;               // 卡类型     1:直充卡      3:卡密类型
+    optional string password = 6;          // 密码
+    optional string end_time = 7;          // 有效期截止日期
+}
+
+// 获取商品配置
+message GetProductCfgReq
+{
+    required string userid = 1;
+    required int32 cache_version = 2;     // 客户端缓存商品配置版本号
+    required string game_id = 3;          // 游戏ID
+    optional int32 package_type = 4;      // 包类型  0:微信包(默认)  1:联众包
+}
+
+message GetProductCfgAck
+{
+    required int32 result = 1;
+    required int32 cur_version = 2;       // 当前配置版本号
+    repeated ProductData product_list = 3;// 商品配置列表 (版本号一致时返回空)
+    repeated ProductExchangeData exchange_list = 4; //兑换商品猎豹标 (版本号一致时返回空)
+    optional string err_msg = 5;   // 错误信息
+}
+
+// 获取商品库存
+message GetProductStockReq
+{
+    required string userid = 1;
+    repeated string id_list = 2;          // 要获取的商品id列表 (为空时全部返回)
+    required string game_id = 3;          // 游戏ID
+}
+
+message GetProductStockAck
+{
+    required int32 result = 1;
+    repeated ProductStock stock_list = 2; // 商品库存列表
+    optional string err_msg = 3;   // 错误信息
+}
+
+// 获取收件信息
+message GetReceiverInfoReq
+{
+    required string userid = 1;
+}
+
+message GetReceiverInfoAck
+{
+    required int32 result = 1;
+    optional ReceiverInfo info = 2;       // 收件人信息，未填写用户不返回
+    optional string err_msg = 3;   // 错误信息
+}
+
+// 更新收件信息
+message UptReceiverInfoReq
+{
+    required string userid = 1;
+    required ReceiverInfo info = 2;       // 收件人信息
+}
+
+message UptReceiverInfoAck
+{
+    required int32 result = 1;
+    optional ReceiverInfo info = 2;       // 收件人信息
+    optional string err_msg = 3;   // 错误信息
+}
+
+// 兑换商品
+message ExchangeProductGetCodeReq
+{
+    required string userid = 1;
+    required string product_id = 2;       // 要兑换的商品ID
+    required string phone = 3;            // 要兑换的商品ID
+    required int32 count = 4;             // 兑换数量
+}
+
+message ExchangeProductGetCodeAck
+{
+    required int32 result = 1;
+    optional string err_msg = 2;   // 错误信息
+}
+
+// 兑换商品验证
+message ExchangeProductVerifyCodeReq
+{
+    required string userid = 1;
+    required string code = 2;             // 验证码
+    required string product_id = 3;       // 要兑换的商品ID
+    required int32 count = 4;             // 兑换数量
+}
+
+message ExchangeProductVerifyCodeAck
+{
+    required int32 result = 1;
+    optional string err_msg = 2;   // 错误信息
+}
+
+// 兑换记录
+message GetExchangeRecordReq
+{
+    required string userid = 1;
+}
+
+message GetExchangeRecordAck
+{
+    required int32 result = 1;
+    repeated ExchangeInfo info = 2;
+    optional string err_msg = 3;   // 错误信息
+}
+
+// 购买商品 获取订单
+message BuyProductOrderReq
+{
+    required string userid = 1;
+    required string product_id = 2;       // 要购买的商品ID
+    optional int32 package_type = 3;      // 包类型  0:微信包(默认)  1:联众包
+}
+
+message BuyProductOrderAck
+{
+    required int32 result = 1;
+    optional string partnerid = 2;         // 商户号
+    required string prepayid = 3;          // 预支付ID
+    optional string noncestr = 4;          // 随机字符串
+    optional string timestamp = 5;         // 时间戳
+    optional string sign = 6;              // 签名
+    optional string err_msg = 7;           // 错误信息
+    optional string product_id = 8;        // 商品id
+}
+
+// 购买商品 订单支付通知
+message PayProductOrderReq
+{
+    required string appid = 1;
+    required string mch_id = 2;
+    required string order_id = 3;         // 订单号
+    required string pay_ret = 4;
+    required int32 fee = 5;
+}
+
+message PayProductOrderAck
+{
+    required int32 result = 1;
+    optional string err_msg = 2;   // 错误信息
+}
+
+// 获取卡包信息
+message GetCardPacketReq
+{
+    required string userid = 1;
+}
+
+message GetCardPacketAck
+{
+    required int32 result = 1;
+    repeated CardInfo card_list = 2;  // 卡列表
+    optional string err_msg = 3;    // 错误信息
+}
+
+// 卡包使用(直充或删除)
+message UseCardInPacketReq
+{
+    required string userid = 1;
+    required string card = 2; 
+    required int32 use_type = 3;   // 1:直充    2:删除     卡密类型无法直充
+    optional string phone = 4;   // 直充手机号
+}
+
+message UseCardInPacketAck
+{
+    required int32 result = 1;
+    optional string err_msg = 2;    // 错误信息
+}
+
+// 成为代理通知
+message BeAgentNtf
+{
+    required int32 agent = 1;     // 代理权限   1:是代理   0:非代理
+}
+
+// 聚联讯充值回调
+message JLXRechargeBackReq
+{
+    required string merc_order_no = 1;     // 商户订单号
+    required string plat_order_no = 2;     // 聚联讯平台订单号
+    required string merc_acc = 3;     // 商户号
+    required string product_type = 4;     // 产品类型
+    required string mobile = 5;     // 充值手机号
+    required string product_discount = 6;     // 折扣率
+    required string order_status = 7;     // 订单状态0:已受理,1:发送终止,2:充值中,3：充值成功，4:充值失败，待退款，5：部分成功，6：已退款
+}
+
+message JLXRechargeBackAck
+{
+    required int32 result = 1;
+}
+
+// 兑换记录
+message GetRechargeRecordReq
+{
+    required string userid = 1;
+}
+
+message GetRechargeRecordAck
+{
+    required int32 result = 1;
+    repeated RechargeInfo info = 2;
+    optional string err_msg = 3;   // 错误信息
+}
+
+// 后台通知刷新配置
+message ToolsRefreshReq
+{
+    required string id = 1;
+}
+
+message ToolsRefreshAck
+{
+    required int32 result = 1;
+    optional string err_msg = 2;   // 错误信息
+}

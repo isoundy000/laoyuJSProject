@@ -1,0 +1,48 @@
+
+yaman.png
+size: 1024,512
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+guang
+  rotate: false
+  xy: 336, 206
+  size: 323, 295
+  orig: 323, 295
+  offset: 0, 0
+  index: -1
+guangyun
+  rotate: false
+  xy: 2, 169
+  size: 332, 332
+  orig: 332, 332
+  offset: 0, 0
+  index: -1
+xing1
+  rotate: false
+  xy: 223, 131
+  size: 40, 36
+  orig: 40, 36
+  offset: 0, 0
+  index: -1
+xing2
+  rotate: false
+  xy: 661, 451
+  size: 76, 50
+  orig: 76, 50
+  offset: 0, 0
+  index: -1
+xing3
+  rotate: false
+  xy: 2, 2
+  size: 51, 37
+  orig: 51, 37
+  offset: 0, 0
+  index: -1
+zi_yaman
+  rotate: false
+  xy: 2, 41
+  size: 219, 126
+  orig: 219, 126
+  offset: 0, 0
+  index: -1

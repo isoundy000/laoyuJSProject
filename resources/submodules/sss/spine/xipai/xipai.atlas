@@ -1,0 +1,27 @@
+
+xipai.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+card_bg
+  rotate: false
+  xy: 420, 2
+  size: 162, 220
+  orig: 162, 220
+  offset: 0, 0
+  index: -1
+mohu
+  rotate: false
+  xy: 2, 2
+  size: 234, 220
+  orig: 234, 220
+  offset: 0, 0
+  index: -1
+mohu2
+  rotate: false
+  xy: 238, 2
+  size: 180, 220
+  orig: 180, 220
+  offset: 0, 0
+  index: -1

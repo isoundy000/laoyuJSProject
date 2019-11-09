@@ -1,0 +1,125 @@
+
+daoju_bingtong.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bing0
+  rotate: false
+  xy: 2, 12
+  size: 20, 21
+  orig: 20, 21
+  offset: 0, 0
+  index: -1
+bing1
+  rotate: true
+  xy: 422, 43
+  size: 81, 82
+  orig: 81, 82
+  offset: 0, 0
+  index: -1
+bing2
+  rotate: true
+  xy: 306, 2
+  size: 81, 82
+  orig: 81, 82
+  offset: 0, 0
+  index: -1
+bing3
+  rotate: true
+  xy: 608, 57
+  size: 81, 82
+  orig: 81, 82
+  offset: 0, 0
+  index: -1
+bing4
+  rotate: true
+  xy: 692, 57
+  size: 81, 82
+  orig: 81, 82
+  offset: 0, 0
+  index: -1
+bing5
+  rotate: true
+  xy: 776, 57
+  size: 81, 82
+  orig: 81, 82
+  offset: 0, 0
+  index: -1
+bingtong01
+  rotate: false
+  xy: 516, 129
+  size: 90, 93
+  orig: 90, 93
+  offset: 0, 0
+  index: -1
+bingtong02
+  rotate: false
+  xy: 422, 126
+  size: 92, 96
+  orig: 92, 96
+  offset: 0, 0
+  index: -1
+bingtong03
+  rotate: false
+  xy: 306, 85
+  size: 114, 137
+  orig: 114, 137
+  offset: 0, 0
+  index: -1
+bingtong04
+  rotate: false
+  xy: 154, 45
+  size: 150, 177
+  orig: 150, 177
+  offset: 0, 0
+  index: -1
+bingtong05
+  rotate: false
+  xy: 2, 35
+  size: 150, 187
+  orig: 150, 187
+  offset: 0, 0
+  index: -1
+bingtong_liuguang01
+  rotate: false
+  xy: 608, 140
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+bingtong_liuguang02
+  rotate: false
+  xy: 692, 140
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+bingtong_liuguang03
+  rotate: false
+  xy: 776, 140
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+bingtong_liuguang04
+  rotate: false
+  xy: 860, 140
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+bingtong_liuguang5
+  rotate: false
+  xy: 860, 56
+  size: 82, 82
+  orig: 82, 82
+  offset: 0, 0
+  index: -1
+bingtong_yan
+  rotate: false
+  xy: 944, 172
+  size: 50, 50
+  orig: 50, 50
+  offset: 0, 0
+  index: -1

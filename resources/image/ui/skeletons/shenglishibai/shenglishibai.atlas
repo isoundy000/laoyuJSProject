@@ -1,0 +1,237 @@
+
+shenglishibai.png
+size: 2048,1024
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+XX
+  rotate: false
+  xy: 1712, 597
+  size: 51, 52
+  orig: 51, 52
+  offset: 0, 0
+  index: -1
+XX1
+  rotate: false
+  xy: 1410, 437
+  size: 105, 111
+  orig: 105, 111
+  offset: 0, 0
+  index: -1
+XX2
+  rotate: false
+  xy: 806, 107
+  size: 51, 37
+  orig: 51, 37
+  offset: 0, 0
+  index: -1
+XX3
+  rotate: false
+  xy: 1517, 498
+  size: 76, 50
+  orig: 76, 50
+  offset: 0, 0
+  index: -1
+XX4
+  rotate: false
+  xy: 504, 7
+  size: 40, 36
+  orig: 40, 36
+  offset: 0, 0
+  index: -1
+beijing
+  rotate: false
+  xy: 2, 504
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00000
+  rotate: false
+  xy: 504, 552
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00001
+  rotate: false
+  xy: 806, 854
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00002
+  rotate: false
+  xy: 504, 400
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00003
+  rotate: false
+  xy: 806, 702
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00004
+  rotate: false
+  xy: 1108, 854
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00005
+  rotate: false
+  xy: 504, 248
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00006
+  rotate: false
+  xy: 806, 550
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00007
+  rotate: false
+  xy: 1108, 702
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00008
+  rotate: false
+  xy: 1410, 854
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00009
+  rotate: false
+  xy: 504, 96
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00010
+  rotate: false
+  xy: 806, 398
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00011
+  rotate: false
+  xy: 1108, 550
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00012
+  rotate: false
+  xy: 1410, 702
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00013
+  rotate: false
+  xy: 1712, 854
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00014
+  rotate: false
+  xy: 806, 246
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00015
+  rotate: false
+  xy: 1108, 398
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00016
+  rotate: false
+  xy: 1410, 550
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00017
+  rotate: false
+  xy: 1712, 702
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+fuyonglizi/fuyonglizi_00018
+  rotate: false
+  xy: 1108, 246
+  size: 300, 150
+  orig: 300, 150
+  offset: 0, 0
+  index: -1
+guang222
+  rotate: false
+  xy: 504, 704
+  size: 300, 300
+  orig: 300, 300
+  offset: 0, 0
+  index: -1
+liandui
+  rotate: false
+  xy: 689, 45
+  size: 98, 49
+  orig: 98, 49
+  offset: 0, 0
+  index: -1
+sandaiyidui
+  rotate: false
+  xy: 504, 45
+  size: 183, 49
+  orig: 183, 49
+  offset: 0, 0
+  index: -1
+shengli
+  rotate: false
+  xy: 806, 146
+  size: 202, 98
+  orig: 202, 98
+  offset: 0, 0
+  index: -1
+shibai
+  rotate: false
+  xy: 2, 2
+  size: 500, 500
+  orig: 500, 500
+  offset: 0, 0
+  index: -1
+shunzi
+  rotate: false
+  xy: 1410, 386
+  size: 96, 49
+  orig: 96, 49
+  offset: 0, 0
+  index: -1
+sidaisan
+  rotate: false
+  xy: 1010, 195
+  size: 137, 49
+  orig: 137, 49
+  offset: 0, 0
+  index: -1
+text_sandaiyi
+  rotate: false
+  xy: 1712, 651
+  size: 138, 49
+  orig: 138, 49
+  offset: 0, 0
+  index: -1

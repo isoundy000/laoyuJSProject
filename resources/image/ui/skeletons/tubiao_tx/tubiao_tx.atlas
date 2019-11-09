@@ -1,0 +1,272 @@
+
+tubiao_tx.png
+size: 2048,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+tubiao_denglong1
+  rotate: false
+  xy: 1454, 49
+  size: 75, 87
+  orig: 75, 87
+  offset: 0, 0
+  index: -1
+tubiao_denglong2
+  rotate: false
+  xy: 1454, 138
+  size: 106, 110
+  orig: 106, 110
+  offset: 0, 0
+  index: -1
+tubiao_denglong3
+  rotate: false
+  xy: 1562, 220
+  size: 102, 28
+  orig: 102, 28
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang01
+  rotate: false
+  xy: 2, 126
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang02
+  rotate: false
+  xy: 2, 2
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang03
+  rotate: false
+  xy: 123, 126
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang04
+  rotate: false
+  xy: 123, 2
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang05
+  rotate: false
+  xy: 244, 126
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang06
+  rotate: false
+  xy: 244, 2
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang07
+  rotate: false
+  xy: 365, 126
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang08
+  rotate: false
+  xy: 365, 2
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang09
+  rotate: false
+  xy: 486, 126
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang10
+  rotate: false
+  xy: 486, 2
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang11
+  rotate: false
+  xy: 607, 126
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang12
+  rotate: false
+  xy: 607, 2
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang13
+  rotate: false
+  xy: 728, 126
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang14
+  rotate: false
+  xy: 728, 2
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang15
+  rotate: false
+  xy: 849, 126
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang16
+  rotate: false
+  xy: 849, 2
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang17
+  rotate: false
+  xy: 970, 126
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang18
+  rotate: false
+  xy: 970, 2
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang19
+  rotate: false
+  xy: 1091, 126
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang20
+  rotate: false
+  xy: 1091, 2
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang21
+  rotate: false
+  xy: 1212, 126
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang22
+  rotate: false
+  xy: 1212, 2
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang23
+  rotate: false
+  xy: 1333, 126
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_kuang_guang24
+  rotate: false
+  xy: 1333, 2
+  size: 119, 122
+  orig: 119, 122
+  offset: 0, 0
+  index: -1
+tubiao_liuguang01
+  rotate: false
+  xy: 1562, 190
+  size: 102, 28
+  orig: 102, 28
+  offset: 0, 0
+  index: -1
+tubiao_liuguang02
+  rotate: false
+  xy: 1666, 220
+  size: 102, 28
+  orig: 102, 28
+  offset: 0, 0
+  index: -1
+tubiao_liuguang03
+  rotate: false
+  xy: 1562, 160
+  size: 102, 28
+  orig: 102, 28
+  offset: 0, 0
+  index: -1
+tubiao_liuguang04
+  rotate: false
+  xy: 1666, 190
+  size: 102, 28
+  orig: 102, 28
+  offset: 0, 0
+  index: -1
+tubiao_liuguang05
+  rotate: false
+  xy: 1770, 220
+  size: 102, 28
+  orig: 102, 28
+  offset: 0, 0
+  index: -1
+tubiao_liuguang06
+  rotate: false
+  xy: 1666, 160
+  size: 102, 28
+  orig: 102, 28
+  offset: 0, 0
+  index: -1
+tubiao_liuguang07
+  rotate: false
+  xy: 1770, 190
+  size: 102, 28
+  orig: 102, 28
+  offset: 0, 0
+  index: -1
+tubiao_liuguang08
+  rotate: false
+  xy: 1874, 220
+  size: 102, 28
+  orig: 102, 28
+  offset: 0, 0
+  index: -1
+tubiao_liuguang09
+  rotate: false
+  xy: 1770, 160
+  size: 102, 28
+  orig: 102, 28
+  offset: 0, 0
+  index: -1
+tubiao_liuguang10
+  rotate: false
+  xy: 1874, 190
+  size: 102, 28
+  orig: 102, 28
+  offset: 0, 0
+  index: -1
+tubiao_liuguang11
+  rotate: false
+  xy: 1874, 160
+  size: 102, 28
+  orig: 102, 28
+  offset: 0, 0
+  index: -1

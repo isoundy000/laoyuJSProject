@@ -1,0 +1,11 @@
+# windows and mac thum
+Thumbs.db
+.DS_Store
+
+*.pyc
+*.sh
+
+.idea
+update/
+
+package_temp/

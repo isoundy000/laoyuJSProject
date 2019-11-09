@@ -1,0 +1,302 @@
+message Attachments
+{
+    required string itemid              = 1;    //附件道具id
+    required int32 itemvalue            = 2;    //附件道具个数
+    required int32 goodstype            = 3;	//类型	道具类型 礼包：2、道具：3
+}
+
+message MailsData
+{
+    required string mailid              = 1;    //邮件id
+    required string subject             = 2;    //邮件标题
+    required string content             = 3;    //邮件内容
+    required int32 type                 = 4;    //邮件类型 (0：全服邮件 1：用户邮件 3:比赛完成等待结算的提示和流赛和弃赛邮件)
+    required string source              = 5;    //邮件发件方
+    required int32 rankid               = 6;    //客户端显示排序值
+    required int32 read                 = 7;    //是否已读（0:未读：1:已读）
+    required int32 get                  = 8;    //附件状态（0 无附件 1 有附件 2附件已领取）
+    required int32 createtime           = 9;     //邮件创建时间(秒)（1970.1.1到目前为止经历的秒数）
+    required int32 expiretime           = 10;    //邮件过期时间(秒)（1970.1.1到目前为止经历的秒数）
+    repeated Attachments attachments    = 11;   //邮件附件
+    required int32 public               = 12;   //是否是公告 （0：非公告 1：公告）
+    required string guide               = 13;   //邮件引导向哪个功能
+    required int32 pop                  = 14;   //是否可弹出（0：不可弹出 1：可弹出）
+}
+
+//过滤条件信息结构
+//type 分类, version-版本号，channel-渠道，pkg-包名
+message MailFilter
+{
+    required string type                = 1;  // 筛选类型，例如按 版本号、渠道、包名
+    repeated OrCondition cond           = 2;  // 筛选条件，每个条件是或者的关系
+}
+
+//邮件过滤条件中，‘或’关系的条件信息
+message OrCondition
+{
+    repeated AndCondition and           = 1;  // 筛选条件，每个条件是并且的关系
+}
+
+//邮件过滤条件中，‘并且’关系的条件信息
+message AndCondition
+{
+    required int32 valtype              = 1;    // 比较值数据类型，1 整数；2 字符串；3 浮点数
+    required int32 calc                 = 2;    // 1  等于 2  大于 3  小于 4  不等于
+    required string sval                = 3;    //无论值是什么类型，一律转成字符串发
+}
+
+//客户端过滤条件信息
+//type 分类, version-版本号，channel-渠道，pkg-包名
+message ClientInfo
+{
+    required string type            = 1;        // 筛选类型，例如按 版本号、渠道、包名
+    required int32 valtype          = 2;        // 类型值数据类型，1 整数；2 字符串；3 浮点数
+    required string sval            = 3;        //无论值是什么类型，一律转成字符串发
+}
+
+//领取道具列表
+message RewardInfo
+{
+    required string itemid            = 1;        // 道具code
+    required int32 itemvalue          = 2;        // 领取的道具数量
+}
+
+//获取邮件列表 - 请求
+message GetUserMailsReq
+{
+    required string userid              = 1;   //玩家id
+    required int32 gameid               = 2;   //游戏id（游戏的唯一标识码）
+    required int32 showtype             = 3;   //显示模式 0：全部显示 1：分页显示全部类型邮件 2：分页显示未读邮件 3：分页显示未领取附件邮件
+    optional int32 pagecount            = 4;   //每页显示多少数据
+    optional int32 pageindex            = 5;   //当前显示第几页内容
+    repeated ClientInfo info            = 6;   //客户端的过滤信息
+}
+
+//获取邮件列表 - 响应
+message GetUserMailsAck
+{
+    required string userid              = 1;   //玩家id
+    required int32 result               = 2;   //结果（0：成功  1：失败）
+    repeated MailsData mailsdata        = 3;   //邮件列表
+    required int32 maillimit            = 4;   //邮件个数限制
+}
+
+//发邮件 - 请求
+message SendUserMailReq
+{
+    repeated string userid              = 1;    //收件玩家id 支持多个玩家
+    required int32 gameid               = 2;    //发往的游戏id
+    required string source              = 3;    //发件方 最大200个字符
+    required int32 type                 = 4;    //邮件类型 (0：全服邮件 1：用户邮件)
+    required string subject             = 5;    //邮件标题 最大200个字符
+    required string content             = 6;    //邮件内容 最大2000个字符
+    required int32 rankid               = 7;    //客户端显示排序值 按降序排序
+    required string createtime          = 8;    //邮件创建时间
+    required string expiretime          = 9;    //邮件过期时间
+    repeated Attachments attachments    = 10;   //邮件附件
+    required string mailsourceid        = 11;   //发送源邮件id  发送方生成的唯一邮件源ID
+    required int32 delafterread         = 12;   //是否读完就删除(0：读完不删除 1：读完删除)
+    required int32 public               = 13;   //是否是公告 （0：非公告 1：公告）
+    required string guide               = 14;   //邮件引导向哪个功能
+    required int32 pop                  = 15;   //是否要弹出显示
+    repeated MailFilter filter          = 16;   //邮件过滤条件
+}
+
+//发邮件 - 响应
+message SendUserMailAck
+{
+    required int32 result               = 1;   //结果（0：成功  1：失败）
+    required string mailid              = 2;   //邮件id
+}
+
+//读邮件 - 请求
+message ReadMailReq
+{
+    required string userid              = 1;   //玩家id
+    required int32 gameid               = 2;   //游戏id（游戏的唯一标识码）
+    repeated string mailid              = 3;   //邮件id 可标记多封已读
+    optional int32 readtype             = 4;   //读邮件类型（0 一键读取 1 单封读取）
+}
+
+//读邮件 - 响应
+message ReadMailAck
+{
+    required string userid              = 1;   //玩家id
+    required int32 result               = 2;   //结果（0：成功  1：失败）
+    repeated string mailid              = 3;   //邮件id 多封已读
+}
+
+//删除邮件 - 请求
+message DeleteMailReq
+{
+    required string userid              = 1;   //玩家id
+    required int32 gameid               = 2;   //游戏id（游戏的唯一标识码）
+    repeated string mailid              = 3;   //邮件id 可删除多封
+    optional int32 deltype              = 4;   //删除邮件类型（0：一键删除非未领邮件 1：单封删除）
+}
+
+//删除邮件 - 响应
+message DeleteMailAck
+{
+    required string userid              = 1;   //玩家id
+    required int32 result               = 2;   //结果（0：成功  1：失败）
+    repeated string mailid              = 3;   //邮件id 多封已删除
+}
+
+//领取邮件附件 - 请求
+message RecAttachmentsReq
+{
+    required string userid              = 1;   //玩家id
+    required int32 gameid               = 2;   //游戏id（游戏的唯一标识码）
+    repeated string mailid              = 3;   //邮件id 可领取多封
+}
+
+//领取邮件附件 - 响应
+message RecAttachmentsAck
+{
+    required string userid              = 1;   //玩家id
+    required int32 result               = 2;   //结果（0：成功  1：失败）
+    repeated string mailid              = 3;   //邮件id 多封已领取
+    repeated RewardInfo reward          = 4;   //领取的道具内容
+}
+
+//新邮件到达通知
+message NewMailNotice
+{
+    repeated string userid             = 1;     //用户角色ID
+    repeated MailFilter filter         = 2;     //邮件过滤条件
+    required int32 type                = 3;     //邮件类型 0：系统邮件 1：用户邮件
+    required string mailid             = 4;     //新邮件的id（数组格式，支持多封邮件的通知）
+}
+
+//上线或者收到新系统邮件通知后，客户端请求添加系统邮件给用户
+message AddSystemMailToUserReq
+{
+    required string userid             = 1;     //用户角色ID
+    required int32 gameid              = 2;     //游戏id（游戏的唯一标识码）
+}
+
+message AddSystemMailToUserAck
+{
+    required string userid              = 1;   //玩家id
+    required int32 result               = 2;   //结果（0：成功  1：失败）
+}
+
+//获取全部邮件个数，未读邮件个数，未领取附件邮件个数
+message GetMailsCountInfoReq
+{
+    required string userid             = 1;     //用户角色ID
+    required int32 gameid              = 2;     //游戏id（游戏的唯一标识码）
+}
+
+//获取全部邮件个数，未读邮件个数，未领取附件邮件个数
+message GetMailsCountInfoAck
+{
+    required string userid              = 1;   //玩家id
+    repeated int32 result               = 2;    //对应类型的邮件个数 （result[0]：全部类型 result[1]：未读类型 result[2]：未领取类型）
+}
+
+//邮件系统从道具服 领取物品
+message OGNewItem_TakeGoodsReq
+{
+	required string UserID = 1;	//角色名
+	optional string Mobile = 2;	//手机号
+	optional string Channel = 3;	//渠道
+	optional string Version = 4;	//版本
+	optional string Package = 5;	//包名
+	optional string Imsi = 6;	//运营商
+	required string GameID = 7;	//游戏ID
+	required string UserIP = 8;	//用户IP
+	repeated OGNewItem_TakeGoodsInfo GoodsInfo = 9;	//需要领取的物品信息
+	required int32	IsSendNotice = 10;	//是否发送道具变更通知 0:不发送，1：发送
+	required string	OrderNumber = 11;	//订单号，避免同一个订单重复操作
+	required OGNewItem_OperationReason OperationReason = 12;
+	optional string	ExtraInfo = 13;
+}
+
+//领取道具回馈
+message OGNewItem_UserPrizeHistoryDetailsAck
+{
+	required string UserID = 1;	//用户ID
+	required int32	ResultCode = 2;	//状态
+	optional string	ResultMsg = 3;	//信息
+	repeated OGNewItem_PrizeDetailInfo PrizeList = 4;	//礼物列表
+	optional string	ExtraInfo = 5;	//额外信息
+	optional string TargetUserID = 6;	//查看对象ID【为空获取本人道具信息】
+}
+
+//礼物赠送明细
+message OGNewItem_PrizeDetailInfo
+{
+	required string	FromUserID = 1;		//赠送用户ID
+	required string	ToUserID = 2;		//接受用户ID
+	required int64	PrizeQuantity = 3;	//数量
+	required string PrizeName = 4;		//名称
+	required string PrizeCode = 5;		//Code
+	required string	PrizeIcon = 6;		//Icon
+	required int32	PrizeType = 7;		//0：无，1：增益，2：减益
+	required string	SendDate = 8;		//最后赠送时间
+}
+
+//领取物品信息
+message OGNewItem_TakeGoodsInfo
+{
+	required string GoodsCode = 1;		//code
+	required int32 GoodsType = 2;		//类型	物品类型 礼包：2、道具：3
+	required int64	GoodsQuantity = 3;	//数量	如果是时间，传入小时数
+}
+
+message OGNewItem_OperationReason
+{
+	required int32	OperationReason = 1;	//打赏荷官、购买商品、赠送用户、赠送好友、、、等
+	optional int32	GoodsType = 2;		    //物品类型 1：商品、2：礼包：3、道具
+	optional string	GoodsCode = 3;		    //物品Code
+}
+
+//根据mailid获取邮件内容 - 请求
+message GetMailsByIdReq
+{
+    required string userid              = 1;   //玩家id
+    required int32 gameid               = 2;   //游戏id（游戏的唯一标识码）
+    repeated string mailid              = 3;   //邮件id（数组格式 支持对多封已知id的邮件内容进行查看）
+}
+
+//根据mailid获取邮件内容 - 响应
+message GetMailsByIdAck
+{
+    required string userid              = 1;   //玩家id
+    required int32 result               = 2;   //结果（0：成功  1：失败）
+    repeated MailsData mailsdata        = 3;   //邮件列表
+}
+
+//删除发错的邮件 - 请求
+message DeleteWrongMailsReq
+{
+    required int32 gameid               = 1;    //游戏id
+    required string mailid              = 2;    //邮件id（数组格式 支持对多封已知id的邮件内容进行查看)
+    required int32 type                 = 3;    //邮件类型 0：全服邮件 1：用户邮件
+    repeated string userid              = 4;    //非全服邮件时，需要填写该字段
+}
+
+//删除发错的邮件 - 响应
+message DeleteWrongMailsAck
+{
+    required int32 result               = 1;   //结果（0：成功  1：失败）
+    required string mailid              = 2;   //邮件id
+    repeated string failid              = 3;   //删除失败的用户id
+}
+
+//首页判定是否存在新邮件，客户端显示红点用 --请求
+message GetMailIfExistRedDotReq
+{
+    required string userid              = 1;    //玩家id
+    required int32 gameid               = 2;   	//游戏id（游戏的唯一标识码）
+}
+
+//首页判定是否存在新邮件，客户端显示红点用 -- 响应
+message GetMailIfExistRedDotAck
+{
+	required string userid              = 1;     	//用户角色ID
+    required int32 result               = 2;   		//结果（0：成功  1：失败）
+    required int32 redDotStatus         = 3;   		//是否有红点（0：否 1：是）
+}

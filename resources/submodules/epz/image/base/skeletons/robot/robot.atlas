@@ -1,0 +1,48 @@
+
+robot.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+di
+  rotate: false
+  xy: 2, 53
+  size: 70, 71
+  orig: 70, 71
+  offset: 0, 0
+  index: -1
+erduo
+  rotate: true
+  xy: 74, 63
+  size: 61, 30
+  orig: 61, 30
+  offset: 0, 0
+  index: -1
+tou
+  rotate: false
+  xy: 2, 7
+  size: 65, 44
+  orig: 65, 44
+  offset: 0, 0
+  index: -1
+yanjing1
+  rotate: true
+  xy: 106, 87
+  size: 37, 19
+  orig: 37, 19
+  offset: 0, 0
+  index: -1
+yanjing2
+  rotate: true
+  xy: 69, 17
+  size: 34, 6
+  orig: 34, 6
+  offset: 0, 0
+  index: -1
+yanjing3
+  rotate: false
+  xy: 2, 2
+  size: 32, 3
+  orig: 32, 3
+  offset: 0, 0
+  index: -1
