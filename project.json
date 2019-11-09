@@ -1,0 +1,41 @@
+{
+    "project_type": "javascript",
+    "debugMode" : 1,
+    "showFPS" : false,
+    "frameRate" : 60,
+    "noCache" : false,
+    "id" : "gameCanvas",
+    "renderMode" : 0,
+    "engineDir":"frameworks/cocos2d-html5",
+
+    "modules" : ["cocos2d", "cocostudio", "extensions", "socketio", "actions3d"],
+
+    "jsList": [
+        "src/resource.js",
+
+        "src/libs/base64.js",
+        "src/libs/Bzip2.js",
+        "src/libs/crypto.js",
+        "src/libs/hmac.js",
+        "src/libs/cbc.js",
+        "src/libs/md5.js",
+        "src/libs/sha1.js",
+        "src/libs/aes.js",
+        "src/libs/pbkdf2.js",
+        "src/libs/ofb.js",
+
+        "src/common/aes.js",
+        "src/common/js.class.js",
+        "src/common/lodash.min.js",
+        "src/common/csv.min.js",
+        "src/common/long.min.js",
+        "src/common/bytebuffer.min.js",
+        "src/common/protobuf.min.js",
+        "src/common/core.js",
+        "src/common/enc-base64.js",
+        "src/common/enc-utf16.js",
+        "src/common/md5.js",
+        "src/common/dateformat.js",
+        "src/app.js"
+    ]
+}
